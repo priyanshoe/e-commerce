@@ -1,0 +1,6 @@
+{
+  "name": "Simple E-Commerce App",
+  "description": "A beginner-friendly role-based e-commerce platform for customers, sellers with multiple businesses, and admins using React Router, Axios, and REST APIs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

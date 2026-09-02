@@ -1,0 +1,238 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Customer",
+      "email": "john@example.com",
+      "password": "123456",
+      "role": "CUSTOMER"
+    },
+    {
+      "id": "2",
+      "name": "Sarah Seller",
+      "email": "sarah@seller.com",
+      "password": "123456",
+      "role": "SELLER"
+    },
+    {
+      "id": "3",
+      "name": "Alex Admin",
+      "email": "admin@shop.com",
+      "password": "123456",
+      "role": "ADMIN"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo@demo.com",
+      "password": "demopass",
+      "role": "CUSTOMER",
+      "id": "_uLoVjMPVHE"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo2@demo.com",
+      "password": "awdwadwadw",
+      "role": "CUSTOMER",
+      "id": "-BOPFo6mM_k"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo3@demo.com",
+      "password": "awdwwdwadwa",
+      "role": "CUSTOMER",
+      "id": "CyFQM-VuuWc"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo4@demo.com",
+      "password": "awsdwdwdwa",
+      "role": "CUSTOMER",
+      "id": "b1n6Nz0SmPU"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo5@demo.com",
+      "password": "awdwdwdwawddw",
+      "role": "CUSTOMER",
+      "id": "xo800F60Wxs"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo7@demo.com",
+      "password": "awdawdwdawdwd",
+      "role": "CUSTOMER",
+      "id": "aiLZsEzmZSU"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo8@demo.com",
+      "password": "dsssssssssssssss",
+      "role": "CUSTOMER",
+      "id": "TL0szBTnWbE"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo9@demo.com",
+      "password": "sssssssssssssss",
+      "role": "CUSTOMER",
+      "id": "dNdGb2PDQl0"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo11@demo.com",
+      "password": "ddddddddddddd",
+      "role": "CUSTOMER",
+      "id": "dbIo2BdcdYs"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo@demo.com1",
+      "password": "aaaaaaaaaaaaaaaaaaaaa",
+      "role": "CUSTOMER",
+      "id": "pMu051AHXyo"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo@demo.com2",
+      "password": "asdawwawdaww",
+      "role": "CUSTOMER",
+      "id": "xZmVkk2Ea8A"
+    },
+    {
+      "name": "Priyanshu",
+      "email": "demo@demo.com3",
+      "password": "dddddddddddddddddd",
+      "role": "CUSTOMER",
+      "id": "6aO1G0_TyrQ"
+    }
+  ],
+  "businesses": [
+    {
+      "id": "1",
+      "sellerId": 2,
+      "name": "Apex Electronics",
+      "description": "Premium electronics, smart audio gear, and modern gadgets.",
+      "email": "contact@apexelectronics.com",
+      "phone": "+1 (555) 234-5678",
+      "address": "742 Evergreen Terrace, Suite 101, Springfield",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-15"
+    },
+    {
+      "id": "2",
+      "sellerId": 2,
+      "name": "Nordic Home & Living",
+      "description": "Minimalist Scandinavian home decor, desk organizers, and furniture.",
+      "email": "hello@nordichome.com",
+      "phone": "+1 (555) 876-5432",
+      "address": "404 Innovation Way, Floor 3, Seattle, WA",
+      "status": "ACTIVE",
+      "createdAt": "2026-02-10"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "businessId": 1,
+      "name": "Wireless Noise-Canceling Headphones",
+      "description": "High-fidelity sound with 40-hour battery life and memory-foam ear cushions.",
+      "price": 149.99,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+      "stock": 24,
+      "createdAt": "2026-02-01"
+    },
+    {
+      "id": "2",
+      "businessId": 1,
+      "name": "Mechanical Gaming Keyboard",
+      "description": "Tactile mechanical switches with customizable RGB backlighting and aluminum body.",
+      "price": 89.5,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
+      "stock": 18,
+      "createdAt": "2026-02-05"
+    },
+    {
+      "id": "3",
+      "businessId": 1,
+      "name": "Ultra-Slim Ergonomic Wireless Mouse",
+      "description": "Precision optical tracking with dual Bluetooth 5.2 and 2.4GHz wireless dongle.",
+      "price": 45,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+      "stock": 35,
+      "createdAt": "2026-02-12"
+    },
+    {
+      "id": "4",
+      "businessId": 2,
+      "name": "Ceramic Matte Desk Planter",
+      "description": "Handcrafted minimalist ceramic vase designed for succulents and tabletop plants.",
+      "price": 28,
+      "category": "Home & Living",
+      "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&auto=format&fit=crop&q=80",
+      "stock": 40,
+      "createdAt": "2026-02-14"
+    },
+    {
+      "id": "5",
+      "businessId": 2,
+      "name": "Solid Oak Wooden Desk Organizer",
+      "description": "Natural oak wood tray with compartments for stationery, phone, and watch.",
+      "price": 54,
+      "category": "Home & Living",
+      "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80",
+      "stock": 15,
+      "createdAt": "2026-02-18"
+    },
+    {
+      "id": "6",
+      "businessId": 2,
+      "name": "Warm Ambient LED Table Lamp",
+      "description": "Dimmable touch sensor nightstand lamp with brushed bronze base and warm diffusion.",
+      "price": 68,
+      "category": "Home & Living",
+      "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80",
+      "stock": 20,
+      "createdAt": "2026-02-20"
+    }
+  ],
+  "cartItems": [
+    {
+      "id": "1",
+      "customerId": 1,
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "id": "2",
+      "customerId": 1,
+      "productId": 4,
+      "quantity": 2
+    }
+  ],
+  "orders": [
+    {
+      "id": "1001",
+      "customerId": 1,
+      "products": [
+        {
+          "productId": 3,
+          "name": "Ultra-Slim Ergonomic Wireless Mouse",
+          "businessId": 1,
+          "price": 45,
+          "quantity": 1,
+          "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80"
+        }
+      ],
+      "totalAmount": 45,
+      "paymentMethod": "Card Payment",
+      "status": "PLACED",
+      "orderDate": "2026-02-21",
+      "shippingAddress": "123 Maple Street, Apt 4B, New York, NY",
+      "cardLast4": "4242"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
