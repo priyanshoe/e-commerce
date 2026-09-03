@@ -19,7 +19,6 @@ import {
 } from 'lucide-react';
 
 const Navbar = () => {
-  console.log("NAVBAR RENDERED");
   const { user, isAuthenticated, logout, switchDemoRole } = useAuth();
   const { totalItemsCount } = useCart();
   const { theme, toggleTheme } = useTheme();
@@ -82,7 +81,7 @@ const Navbar = () => {
             {/* Desktop Navigation Links */}
             <nav id="desktop-nav" className="hidden md:flex items-center gap-1">
               {/* Public & Customer Links */}
-              {(!isAuthenticated || user?.role === 'CUSTOMER') && (
+              {(!isAuthenticated() || user?.role === 'CUSTOMER') && (
                 <>
                   <NavLink id="nav-home" to="/" className={activeLinkClass} end>
                     Home
@@ -215,7 +214,7 @@ const Navbar = () => {
             </div>
 
             {/* Customer Cart Icon (Only if Guest or Customer) */}
-            {(!isAuthenticated || user?.role === 'CUSTOMER') && (
+            {(!isAuthenticated() || user?.role === 'CUSTOMER') && (
               <Link
                 id="cart-icon-btn"
                 to="/customer/cart"
@@ -235,7 +234,7 @@ const Navbar = () => {
             )}
 
             {/* Authenticated User Status & Profile Indicator */}
-            {isAuthenticated ? (
+            {isAuthenticated() ? (
               <div className="flex items-center gap-3">
                 {/* Role Pill */}
                 <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full border border-gray-200 dark:border-slate-700">

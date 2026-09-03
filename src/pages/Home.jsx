@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../api/api';
 import ProductCard from '../components/ProductCard';
 import Loading from '../components/Loading';
 import { ArrowRight, ShieldCheck, Truck, Store } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import AuthService from '../services/AuthService';
+import ProductService from '../services/ProductService';
+import BusinesseService from '../services/BusinesseService';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -18,14 +18,10 @@ const Home = () => {
       try {
         setLoading(true);
         const [productsRes, businessesRes] = await Promise.all([
-          AuthService.getProducts(),
-          AuthService.getBusinesses(),
-          // api.get('/products'),
-          // api.get('/businesses'),
+          ProductService.getProducts(),
+          BusinesseService.getBusinesses(),
         ]);
 
-        console.log(productsRes);
-        console.log(businessesRes);
 
 
         setFeaturedProducts(productsRes.data.slice(0, 6));
@@ -68,7 +64,7 @@ const Home = () => {
             <ArrowRight className="w-4 h-4" />
           </Link>
 
-          {!isAuthenticated ? (
+          {!isAuthenticated() ? (
             <Link
               id="hero-register-btn"
               to="/register"

@@ -103,4 +103,4 @@ async function login(email, password) {
 
 
 
-export default { getProducts, getBusinesses, register, login, getOrders }
+export default { register, login, getOrders }

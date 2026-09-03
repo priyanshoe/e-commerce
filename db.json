@@ -104,6 +104,13 @@
       "password": "dddddddddddddddddd",
       "role": "CUSTOMER",
       "id": "6aO1G0_TyrQ"
+    },
+    {
+      "name": "john 2",
+      "email": "john2@example.com",
+      "password": "123456",
+      "role": "CUSTOMER",
+      "id": "HslZG6M1tC4"
     }
   ],
   "businesses": [

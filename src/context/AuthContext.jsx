@@ -5,7 +5,6 @@ import AuthService from '../services/AuthService';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  console.log("AUTH PROVIDER RENDERED");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -104,13 +103,19 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
+  const isAuthenticated = () => {
+    const token = localStorage.getItem("token");
+
+    return token && user ? true : false;
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
         token,
         loading,
-        isAuthenticated: !!user,
+        isAuthenticated,
         login,
         register,
         logout,
