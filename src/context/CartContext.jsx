@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import api from '../api/api';
 import { useAuth } from './AuthContext';
+import CartService from '../services/CartService';
 
 const CartContext = createContext(null);
 
@@ -19,9 +20,7 @@ export const CartProvider = ({ children }) => {
     try {
       setLoading(true);
       // Get all cart items for this customer
-      const cartRes = await api.get('/cartItems', {
-        params: { customerId: user.id },
-      });
+      const cartRes = await CartService.getCartByUser(user.id)
 
       // Also get all products to combine rich product info
       const productsRes = await api.get('/products');
@@ -60,14 +59,16 @@ export const CartProvider = ({ children }) => {
       if (existing) {
         // Update quantity
         const newQty = existing.quantity + quantity;
-        await api.patch(`/cartItems/${existing.id}`, { quantity: newQty });
+        await CartService.update(existing.id, newQty);
+        // await api.patch(`/cartItems/${existing.id}`, { quantity: newQty });
       } else {
         // Create new cart item
-        await api.post('/cartItems', {
+        const data = {
           customerId: user.id,
-          productId: Number(productId),
-          quantity,
-        });
+          productId: productId,
+          quantity: quantity
+        }
+        await CartService.save(data)
       }
 
       await fetchCart();
@@ -82,7 +83,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = async (cartItemId, newQuantity) => {
     if (newQuantity < 1) return;
     try {
-      await api.patch(`/cartItems/${cartItemId}`, { quantity: newQuantity });
+      await CartService.update(cartItemId, newQuantity);
       await fetchCart();
     } catch (error) {
       console.error('Failed to update quantity:', error);
@@ -92,7 +93,7 @@ export const CartProvider = ({ children }) => {
   // Remove item from cart
   const removeFromCart = async (cartItemId) => {
     try {
-      await api.delete(`/cartItems/${cartItemId}`);
+      await CartService.deleteItem(cartItemId);
       await fetchCart();
     } catch (error) {
       console.error('Failed to remove item:', error);
@@ -103,7 +104,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = async () => {
     try {
       for (const item of cartItems) {
-        await api.delete(`/cartItems/${item.id}`);
+        await CartService.deleteItem(item.id);
       }
       setCartItems([]);
     } catch (error) {

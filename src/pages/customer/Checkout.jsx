@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
-import api from '../../api/api';
 import {
   CreditCard,
   Truck,
@@ -10,6 +9,7 @@ import {
   Loader2,
   AlertCircle,
 } from 'lucide-react';
+import OrderService from '../../services/OrderService';
 
 const Checkout = () => {
   const { cartItems, cartSubtotal, totalItemsCount, clearCart } = useCart();
@@ -86,7 +86,7 @@ const Checkout = () => {
       const fullAddress = `${shippingInfo.address}, ${shippingInfo.city} ${shippingInfo.postalCode}, Tel: ${shippingInfo.phone}`;
 
       // Create order via REST API POST /orders
-      const orderResponse = await api.post('/orders', {
+      const data = {
         customerId: user.id,
         products: orderProducts,
         totalAmount: cartSubtotal,
@@ -95,7 +95,8 @@ const Checkout = () => {
         orderDate: new Date().toISOString().split('T')[0],
         shippingAddress: fullAddress,
         cardLast4: paymentMethod === 'CARD' ? '4242' : null,
-      });
+      };
+      const orderResponse = await OrderService.save(data);
 
       // Clear customer's cart
       await clearCart();
@@ -113,7 +114,7 @@ const Checkout = () => {
 
   return (
     <div id="checkout-page" className="max-w-4xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -137,10 +138,10 @@ const Checkout = () => {
       )}
 
       <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         {/* Left Form: Delivery & Payment Details */}
         <div className="lg:col-span-2 space-y-6">
-          
+
           {/* Section 1: Delivery Address */}
           <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs space-y-4 transition-colors duration-200">
             <div className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-slate-800 pb-3">
@@ -216,11 +217,10 @@ const Checkout = () => {
             {/* Payment Choice Radio */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label
-                className={`p-4 rounded-lg border cursor-pointer transition-all flex items-start gap-3 ${
-                  paymentMethod === 'CARD'
-                    ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/50'
-                    : 'border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 bg-gray-50/50 dark:bg-slate-800/50'
-                }`}
+                className={`p-4 rounded-lg border cursor-pointer transition-all flex items-start gap-3 ${paymentMethod === 'CARD'
+                  ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/50'
+                  : 'border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 bg-gray-50/50 dark:bg-slate-800/50'
+                  }`}
               >
                 <input
                   type="radio"
@@ -237,11 +237,10 @@ const Checkout = () => {
               </label>
 
               <label
-                className={`p-4 rounded-lg border cursor-pointer transition-all flex items-start gap-3 ${
-                  paymentMethod === 'COD'
-                    ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/50'
-                    : 'border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 bg-gray-50/50 dark:bg-slate-800/50'
-                }`}
+                className={`p-4 rounded-lg border cursor-pointer transition-all flex items-start gap-3 ${paymentMethod === 'COD'
+                  ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/50'
+                  : 'border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 bg-gray-50/50 dark:bg-slate-800/50'
+                  }`}
               >
                 <input
                   type="radio"
