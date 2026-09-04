@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import { Store, Search, Mail, Phone, MapPin, Package } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
+import AuthService from '../../services/AuthService';
 
 const AdminBusinesses = () => {
   const [businesses, setBusinesses] = useState([]);
@@ -16,9 +17,9 @@ const AdminBusinesses = () => {
       try {
         setLoading(true);
         const [bizRes, prodRes, userRes] = await Promise.all([
-          api.get('/businesses'),
-          api.get('/products'),
-          api.get('/users'),
+          BusinesseService.getBusinesses(),
+          ProductService.getProducts(),
+          AuthService.findAll(),
         ]);
 
         setBusinesses(bizRes.data);
@@ -51,7 +52,7 @@ const AdminBusinesses = () => {
 
   return (
     <div id="admin-businesses-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -92,8 +93,8 @@ const AdminBusinesses = () => {
             </thead>
             <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
               {filteredBusinesses.map((b) => {
-                const seller = users.find((u) => Number(u.id) === Number(b.sellerId));
-                const bizProds = products.filter((p) => Number(p.businessId) === Number(b.id));
+                const seller = users.find((u) => u.id === b.sellerId);
+                const bizProds = products.filter((p) => p.businessId === b.id);
 
                 return (
                   <tr key={b.id} className="hover:bg-slate-50/70 transition-colors">
@@ -117,7 +118,7 @@ const AdminBusinesses = () => {
                       {bizProds.length} item(s)
                     </td>
                     <td className="px-5 py-4 text-right">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${b.status === "ACTIVE" ? "bg-emerald-100 text-emerald-800" : " bg-rose-100 text-rose-800"} uppercase`}>
                         {b.status}
                       </span>
                     </td>

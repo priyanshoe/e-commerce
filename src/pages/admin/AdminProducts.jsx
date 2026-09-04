@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import { Layers, Search, Eye } from 'lucide-react';
+import ProductService from '../../services/ProductService';
+import BusinesseService from '../../services/BusinesseService';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -16,8 +17,8 @@ const AdminProducts = () => {
       try {
         setLoading(true);
         const [prodRes, bizRes] = await Promise.all([
-          api.get('/products'),
-          api.get('/businesses'),
+          ProductService.getProducts(),
+          BusinesseService.getBusinesses()
         ]);
         setProducts(prodRes.data);
         setBusinesses(bizRes.data);
@@ -61,7 +62,7 @@ const AdminProducts = () => {
 
   return (
     <div id="admin-products-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -91,11 +92,10 @@ const AdminProducts = () => {
           <button
             key={cat}
             onClick={() => setCategoryFilter(cat)}
-            className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
-              categoryFilter === cat
-                ? 'bg-indigo-600 text-white'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`px-3 py-1 rounded-lg font-semibold transition-colors ${categoryFilter === cat
+              ? 'bg-indigo-600 text-white'
+              : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             {cat}
           </button>
@@ -155,13 +155,12 @@ const AdminProducts = () => {
                     </td>
                     <td className="px-5 py-4">
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          p.stock <= 0
-                            ? 'bg-rose-100 text-rose-800'
-                            : p.stock < 5
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${p.stock <= 0
+                          ? 'bg-rose-100 text-rose-800'
+                          : p.stock < 5
                             ? 'bg-amber-100 text-amber-800'
                             : 'bg-emerald-100 text-emerald-800'
-                        }`}
+                          }`}
                       >
                         {p.stock} units
                       </span>
