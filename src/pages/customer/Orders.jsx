@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import {
@@ -10,6 +9,7 @@ import {
   Eye,
   ShoppingBag,
 } from 'lucide-react';
+import OrderService from '../../services/OrderService';
 
 const Orders = () => {
   const { user } = useAuth();
@@ -22,9 +22,7 @@ const Orders = () => {
       if (!user) return;
       try {
         setLoading(true);
-        const res = await api.get('/orders', {
-          params: { customerId: user.id },
-        });
+        const res = await OrderService.getOrderByUser(user.id);
         setOrders(res.data);
       } catch (err) {
         console.error('Failed to fetch customer orders:', err);
@@ -47,8 +45,8 @@ const Orders = () => {
     filterTab === 'ACTIVE'
       ? activeOrders
       : filterTab === 'PAST'
-      ? pastOrders
-      : orders;
+        ? pastOrders
+        : orders;
 
   if (loading) {
     return <Loading fullScreen message="Loading your order history..." />;
@@ -56,7 +54,7 @@ const Orders = () => {
 
   return (
     <div id="customer-orders-page" className="max-w-5xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -79,31 +77,28 @@ const Orders = () => {
       <div className="flex items-center gap-2 border-b border-gray-200 dark:border-slate-800 pb-2 text-xs font-semibold">
         <button
           onClick={() => setFilterTab('ALL')}
-          className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-            filterTab === 'ALL'
-              ? 'bg-indigo-600 text-white'
-              : 'text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${filterTab === 'ALL'
+            ? 'bg-indigo-600 text-white'
+            : 'text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
+            }`}
         >
           All Orders ({orders.length})
         </button>
         <button
           onClick={() => setFilterTab('ACTIVE')}
-          className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-            filterTab === 'ACTIVE'
-              ? 'bg-indigo-600 text-white'
-              : 'text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${filterTab === 'ACTIVE'
+            ? 'bg-indigo-600 text-white'
+            : 'text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
+            }`}
         >
           Current / Active ({activeOrders.length})
         </button>
         <button
           onClick={() => setFilterTab('PAST')}
-          className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-            filterTab === 'PAST'
-              ? 'bg-indigo-600 text-white'
-              : 'text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${filterTab === 'PAST'
+            ? 'bg-indigo-600 text-white'
+            : 'text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
+            }`}
         >
           Past Orders ({pastOrders.length})
         </button>
@@ -154,13 +149,12 @@ const Orders = () => {
 
                 <div className="flex items-center gap-3">
                   <span
-                    className={`text-[11px] font-bold px-2.5 py-0.5 rounded uppercase tracking-wider ${
-                      order.status === 'PLACED'
-                        ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300'
-                        : order.status === 'PROCESSING'
+                    className={`text-[11px] font-bold px-2.5 py-0.5 rounded uppercase tracking-wider ${order.status === 'PLACED'
+                      ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300'
+                      : order.status === 'PROCESSING'
                         ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300'
                         : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300'
-                    }`}
+                      }`}
                   >
                     {order.status}
                   </span>

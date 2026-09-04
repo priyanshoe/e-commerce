@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import {
@@ -8,6 +7,9 @@ import {
   ArrowRight,
   AlertCircle,
 } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
+import OrderService from '../../services/OrderService';
 
 const SellerDashboard = () => {
   const { user } = useAuth();
@@ -22,16 +24,14 @@ const SellerDashboard = () => {
       try {
         setLoading(true);
         // Fetch all businesses owned by this seller
-        const bizRes = await api.get('/businesses', {
-          params: { sellerId: user.id },
-        });
+        const bizRes = await BusinesseService.getBusinessesByUser(user.id);
         const myBusinesses = bizRes.data;
         setBusinesses(myBusinesses);
 
         // Fetch all products and orders
         const [productsRes, ordersRes] = await Promise.all([
-          api.get('/products'),
-          api.get('/orders'),
+          ProductService.getProducts(),
+          OrderService.getOrders()
         ]);
 
         const allProducts = productsRes.data;
@@ -62,7 +62,7 @@ const SellerDashboard = () => {
 
   const totalStock = products.reduce((acc, p) => acc + (Number(p.stock) || 0), 0);
   const pendingOrders = orders.filter((o) => o.status === 'PLACED' || o.status === 'PROCESSING');
-  
+
   // Calculate simulated revenue from seller's products
   const totalRevenue = orders.reduce((sum, ord) => {
     const bizIds = new Set(businesses.map((b) => Number(b.id)));
@@ -81,7 +81,7 @@ const SellerDashboard = () => {
 
   return (
     <div id="seller-dashboard-page" className="space-y-8 pb-16">
-      
+
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -223,7 +223,7 @@ const SellerDashboard = () => {
           {/* New Venture Card */}
           <Link
             to="/seller/businesses/create"
-            className="bg-gray-50 dark:bg-slate-900 border border-dashed border-gray-300 dark:border-slate-700 rounded-xl flex flex-col items-center justify-center text-center p-8 group hover:bg-white dark:hover:bg-slate-800/80 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all min-h-[200px]"
+            className="bg-gray-50 dark:bg-slate-900 border border-dashed border-gray-300 dark:border-slate-700 rounded-xl flex flex-col items-center justify-center text-center p-8 group hover:bg-white dark:hover:bg-slate-800/80 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all min-h-50"
           >
             <div className="w-12 h-12 bg-gray-200 dark:bg-slate-800 text-gray-400 dark:text-slate-400 rounded-full flex items-center justify-center mb-3 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/80 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
               <Plus className="w-6 h-6" />

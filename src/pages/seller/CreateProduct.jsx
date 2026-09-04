@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import { Package, ArrowLeft, Loader2, AlertCircle, Image as ImageIcon } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
 
 const CreateProduct = () => {
   const { id } = useParams(); // businessId
@@ -28,7 +29,7 @@ const CreateProduct = () => {
     const fetchBusiness = async () => {
       try {
         setLoading(true);
-        const res = await api.get(`/businesses/${id}`);
+        const res = await BusinesseService.getBusinessById(id);
         const biz = res.data;
 
         // Security check: Must belong to seller
@@ -66,15 +67,15 @@ const CreateProduct = () => {
 
     try {
       setSaving(true);
-      
+
       const defaultImage =
         formData.image.trim() ||
         'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
 
       // REST API POST /products
       // Automatically assign businessId from route parameter
-      await api.post('/products', {
-        businessId: Number(id),
+      const data = {
+        businessId: id,
         name: formData.name.trim(),
         description: formData.description.trim(),
         price: parseFloat(formData.price),
@@ -82,7 +83,8 @@ const CreateProduct = () => {
         image: defaultImage,
         stock: parseInt(formData.stock, 10),
         createdAt: new Date().toISOString().split('T')[0],
-      });
+      };
+      await ProductService.save(data);
 
       // Redirect back to this business's product list
       navigate(`/seller/businesses/${id}/products`);
@@ -100,7 +102,7 @@ const CreateProduct = () => {
 
   return (
     <div id="create-product-page" className="max-w-2xl mx-auto space-y-6 pb-16">
-      
+
       {/* Back Link */}
       <Link
         to={`/seller/businesses/${id}/products`}
@@ -111,7 +113,7 @@ const CreateProduct = () => {
       </Link>
 
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
-        
+
         {/* Header */}
         <div className="space-y-1">
           <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3">

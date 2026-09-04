@@ -46,7 +46,7 @@ const Cart = () => {
 
   return (
     <div id="cart-page" className="max-w-5xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -65,7 +65,7 @@ const Cart = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         {/* Cart Item List */}
         <div className="lg:col-span-2 space-y-4">
           {cartItems.map((item) => {
@@ -108,7 +108,7 @@ const Cart = () => {
 
                 {/* Controls & Subtotal */}
                 <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-6 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 dark:border-slate-800">
-                  
+
                   {/* Quantity Stepper */}
                   <div className="flex items-center border border-gray-200 dark:border-slate-700 rounded-lg bg-gray-50 dark:bg-slate-800 p-1">
                     <button

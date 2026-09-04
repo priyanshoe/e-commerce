@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import Loading from '../../components/Loading';
@@ -23,7 +22,6 @@ const CustomerDashboard = () => {
       try {
         setLoading(true);
         const res = await AuthService.getOrders(user.id)
-        console.log(res);
         setOrders(res.data);
       } catch (error) {
         console.error('Failed to load orders:', error);

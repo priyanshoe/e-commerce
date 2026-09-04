@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import api from '../api/api';
 import ProductCard from '../components/ProductCard';
 import Loading from '../components/Loading';
 import { Search, SlidersHorizontal, PackageOpen } from 'lucide-react';
+import ProductService from '../services/ProductService';
+import BusinesseService from '../services/BusinesseService';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -20,8 +21,8 @@ const Products = () => {
       try {
         setLoading(true);
         const [productsRes, businessesRes] = await Promise.all([
-          api.get('/products'),
-          api.get('/businesses'),
+          ProductService.getProducts(),
+          BusinesseService.getBusinesses(),
         ]);
 
         setProducts(productsRes.data);
@@ -76,7 +77,7 @@ const Products = () => {
 
   return (
     <div id="products-catalog-page" className="space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -102,18 +103,17 @@ const Products = () => {
 
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs transition-colors duration-200">
-        
+
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
-                selectedCategory === cat
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-700'
-              }`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${selectedCategory === cat
+                ? 'bg-indigo-600 text-white shadow-xs'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-700'
+                }`}
             >
               {cat === 'ALL' ? 'All Items' : cat}
             </button>
@@ -163,7 +163,9 @@ const Products = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => {
             const business = businesses.find((b) => String(b.id) === String(product.businessId));
+            const isActive = business.status === "ACTIVE" ? true : false
             return (
+              isActive &&
               <ProductCard
                 key={product.id}
                 product={product}

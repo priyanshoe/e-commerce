@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import {
@@ -12,6 +11,8 @@ import {
   Clock,
   ChevronDown,
 } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import OrderService from '../../services/OrderService';
 
 const SellerOrders = () => {
   const { user } = useAuth();
@@ -25,8 +26,8 @@ const SellerOrders = () => {
     try {
       setLoading(true);
       const [bizRes, ordersRes] = await Promise.all([
-        api.get('/businesses', { params: { sellerId: user.id } }),
-        api.get('/orders'),
+        BusinesseService.getBusinessesByUser(user.id),
+        OrderService.getOrders()
       ]);
 
       const myBizList = bizRes.data;
@@ -71,7 +72,7 @@ const SellerOrders = () => {
     try {
       setUpdatingId(orderId);
       // REST API PATCH /orders/:id
-      await api.patch(`/orders/${orderId}`, { status: newStatus });
+      await OrderService.update(orderId, newStatus)
       await fetchSellerOrders();
     } catch (err) {
       console.error('Failed to update order status:', err);
@@ -87,7 +88,7 @@ const SellerOrders = () => {
 
   return (
     <div id="seller-orders-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
