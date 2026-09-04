@@ -2,48 +2,6 @@ import axios from "axios";
 
 const url = import.meta.env.VITE_API_URL;
 
-async function getProducts() {
-    try {
-        const result = await axios.get(url + "/products")
-        return { success: true, status: 200, data: result.data };
-    } catch (error) {
-        throw { success: false, status: error.status || 500, error: error.message };
-    }
-}
-
-async function getBusinesses() {
-    try {
-        const result = await axios.get(url + "/businesses")
-        return { success: true, status: 200, data: result.data };
-    } catch (error) {
-        throw { success: false, status: error.status || 500, error: error.message };
-    }
-}
-
-async function getOrders(userId) {
-    try {
-        const result = await axios.get(url + "/orders?customerId=" + userId);
-        return { success: true, status: 200, data: result.data };
-    } catch (error) {
-        throw { success: false, status: error.status || 500, error: error.message };
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const findByEmail = async (email) => {
     try {
         const result = await axios.get(
@@ -60,7 +18,7 @@ const findByEmail = async (email) => {
 async function findAll() {
     try {
         const result = await axios.get(url + "/users")
-        return result.data
+        return { success: true, status: 200, data: result.data };
     } catch (err) {
         console.log("Error in fetching Doctors", err);
         throw { success: false, status: err.status || 500, error: err.message };
@@ -103,4 +61,4 @@ async function login(email, password) {
 
 
 
-export default { getProducts, getBusinesses, register, login, getOrders }
+export default { register, login, findAll, findByEmail }

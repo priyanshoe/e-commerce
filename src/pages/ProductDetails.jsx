@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import api from '../api/api';
 import Loading from '../components/Loading';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -15,6 +14,8 @@ import {
   Minus,
   AlertCircle,
 } from 'lucide-react';
+import ProductService from '../services/ProductService';
+import BusinesseService from '../services/BusinesseService';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -34,12 +35,12 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const productRes = await api.get(`/products/${id}`);
+        const productRes = await ProductService.getProduct(id);
         const prodData = productRes.data;
         setProduct(prodData);
 
         if (prodData.businessId) {
-          const bizRes = await api.get(`/businesses/${prodData.businessId}`);
+          const bizRes = await BusinesseService.getBusinessById(prodData.businessId);
           setBusiness(bizRes.data);
         }
       } catch (err) {
@@ -106,11 +107,11 @@ const ProductDetails = () => {
 
   return (
     <div id="product-details-page" className="max-w-5xl mx-auto space-y-8 pb-16">
-      
+
       {/* Back button */}
       <Link
         id="back-to-products-btn"
-        to="/products"
+        to={user.role === "ADMIN" ? "/admin/products" : "/products"}
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-800 px-3 py-1.5 rounded-lg transition-colors shadow-xs"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -119,7 +120,7 @@ const ProductDetails = () => {
 
       {/* Main Details Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs transition-colors duration-200">
-        
+
         {/* Product Image */}
         <div className="relative aspect-square rounded-lg bg-gray-100 dark:bg-slate-800 overflow-hidden border border-gray-100 dark:border-slate-700">
           <img
@@ -135,7 +136,7 @@ const ProductDetails = () => {
         {/* Info & Purchase */}
         <div className="flex flex-col justify-between space-y-6">
           <div className="space-y-4">
-            
+
             {/* Business Seller Header */}
             {business && (
               <div className="flex items-center gap-2 p-2.5 bg-indigo-50/70 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900/60 rounded-lg">
@@ -163,13 +164,12 @@ const ProductDetails = () => {
               <div className="text-right">
                 <span className="text-xs text-gray-400 dark:text-slate-500 block font-medium">Stock Status</span>
                 <span
-                  className={`text-xs font-bold px-2.5 py-1 rounded-md ${
-                    isOutOfStock
-                      ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300'
-                      : product.stock < 5
+                  className={`text-xs font-bold px-2.5 py-1 rounded-md ${isOutOfStock
+                    ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300'
+                    : product.stock < 5
                       ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300'
                       : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300'
-                  }`}
+                    }`}
                 >
                   {isOutOfStock ? 'Out of Stock' : `${product.stock} units available`}
                 </span>
@@ -224,13 +224,12 @@ const ProductDetails = () => {
                 id="product-details-add-btn"
                 onClick={handleAddToCart}
                 disabled={adding || isOutOfStock}
-                className={`w-full py-3.5 px-6 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer ${
-                  added
-                    ? 'bg-emerald-600 text-white'
-                    : isOutOfStock
+                className={`w-full py-3.5 px-6 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer ${added
+                  ? 'bg-emerald-600 text-white'
+                  : isOutOfStock
                     ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-slate-500 cursor-not-allowed'
                     : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'
-                }`}
+                  }`}
               >
                 {added ? (
                   <>

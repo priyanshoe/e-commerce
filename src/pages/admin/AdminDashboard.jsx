@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import {
   Users,
@@ -9,6 +8,10 @@ import {
   Package,
   ArrowRight,
 } from 'lucide-react';
+import AuthService from '../../services/AuthService';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
+import OrderService from '../../services/OrderService';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -22,10 +25,10 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
         const [usersRes, bizRes, prodRes, ordRes] = await Promise.all([
-          api.get('/users'),
-          api.get('/businesses'),
-          api.get('/products'),
-          api.get('/orders'),
+          AuthService.findAll(),
+          BusinesseService.getBusinesses(),
+          ProductService.getProducts(),
+          OrderService.getOrders(),
         ]);
 
         setUsers(usersRes.data);
@@ -52,7 +55,7 @@ const AdminDashboard = () => {
 
   return (
     <div id="admin-dashboard-page" className="space-y-8 pb-16">
-      
+
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -71,7 +74,7 @@ const AdminDashboard = () => {
 
       {/* 5 Core Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        
+
         {/* Total Customers */}
         <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs flex flex-col justify-between transition-colors duration-200">
           <p className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-2">Customers</p>

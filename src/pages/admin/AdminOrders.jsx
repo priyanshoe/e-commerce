@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import { Package, Search, CreditCard, Truck } from 'lucide-react';
+import OrderService from '../../services/OrderService';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -13,7 +13,7 @@ const AdminOrders = () => {
   const fetchAdminOrders = async () => {
     try {
       setLoading(true);
-      const res = await api.get('/orders');
+      const res = await OrderService.getOrders();
       setOrders(res.data);
     } catch (err) {
       console.error('Failed to load admin orders:', err);
@@ -29,7 +29,7 @@ const AdminOrders = () => {
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
       setUpdatingId(orderId);
-      await api.patch(`/orders/${orderId}`, { status: newStatus });
+      await OrderService.update(orderId, newStatus);
       await fetchAdminOrders();
     } catch (err) {
       console.error('Failed to update order status:', err);
@@ -65,7 +65,7 @@ const AdminOrders = () => {
 
   return (
     <div id="admin-orders-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -95,11 +95,10 @@ const AdminOrders = () => {
           <button
             key={st}
             onClick={() => setStatusFilter(st)}
-            className={`px-3 py-1.5 rounded-lg transition-colors ${
-              statusFilter === st
-                ? 'bg-indigo-600 text-white'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`px-3 py-1.5 rounded-lg transition-colors ${statusFilter === st
+              ? 'bg-indigo-600 text-white'
+              : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             {st} ({st === 'ALL' ? orders.length : orders.filter((o) => o.status === st).length})
           </button>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import { Store, ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
 
 const CreateBusiness = () => {
   const { user } = useAuth();
@@ -31,7 +31,7 @@ const CreateBusiness = () => {
     try {
       setLoading(true);
       // REST API POST /businesses
-      await api.post('/businesses', {
+      const data = {
         sellerId: user.id,
         name: formData.name.trim(),
         description: formData.description.trim(),
@@ -40,7 +40,8 @@ const CreateBusiness = () => {
         address: formData.address.trim(),
         status: 'ACTIVE',
         createdAt: new Date().toISOString().split('T')[0],
-      });
+      };
+      await BusinesseService.save(data);
 
       // Redirect to businesses list
       navigate('/seller/businesses');
@@ -54,7 +55,7 @@ const CreateBusiness = () => {
 
   return (
     <div id="create-business-page" className="max-w-2xl mx-auto space-y-6 pb-16">
-      
+
       {/* Back Button */}
       <Link
         to="/seller/businesses"
@@ -65,7 +66,7 @@ const CreateBusiness = () => {
       </Link>
 
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
-        
+
         {/* Header */}
         <div className="space-y-1">
           <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3">

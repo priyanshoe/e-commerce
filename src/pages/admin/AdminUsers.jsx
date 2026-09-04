@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import { Users, Search, Filter, Shield, User, Store } from 'lucide-react';
+import AuthService from '../../services/AuthService';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -13,7 +13,7 @@ const AdminUsers = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const res = await api.get('/users');
+        const res = await AuthService.findAll();
         setUsers(res.data);
       } catch (err) {
         console.error('Failed to load users:', err);
@@ -48,7 +48,7 @@ const AdminUsers = () => {
 
   return (
     <div id="admin-users-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -76,41 +76,37 @@ const AdminUsers = () => {
       <div className="flex items-center gap-2 border-b border-slate-200 pb-2 text-xs font-semibold">
         <button
           onClick={() => setRoleFilter('ALL')}
-          className={`px-3 py-1.5 rounded-lg transition-colors ${
-            roleFilter === 'ALL'
-              ? 'bg-indigo-600 text-white'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors ${roleFilter === 'ALL'
+            ? 'bg-indigo-600 text-white'
+            : 'text-slate-600 hover:bg-slate-100'
+            }`}
         >
           All Users ({users.length})
         </button>
         <button
           onClick={() => setRoleFilter('CUSTOMER')}
-          className={`px-3 py-1.5 rounded-lg transition-colors ${
-            roleFilter === 'CUSTOMER'
-              ? 'bg-emerald-600 text-white'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors ${roleFilter === 'CUSTOMER'
+            ? 'bg-emerald-600 text-white'
+            : 'text-slate-600 hover:bg-slate-100'
+            }`}
         >
           Customers ({users.filter((u) => u.role === 'CUSTOMER').length})
         </button>
         <button
           onClick={() => setRoleFilter('SELLER')}
-          className={`px-3 py-1.5 rounded-lg transition-colors ${
-            roleFilter === 'SELLER'
-              ? 'bg-indigo-600 text-white'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors ${roleFilter === 'SELLER'
+            ? 'bg-indigo-600 text-white'
+            : 'text-slate-600 hover:bg-slate-100'
+            }`}
         >
           Sellers ({users.filter((u) => u.role === 'SELLER').length})
         </button>
         <button
           onClick={() => setRoleFilter('ADMIN')}
-          className={`px-3 py-1.5 rounded-lg transition-colors ${
-            roleFilter === 'ADMIN'
-              ? 'bg-rose-600 text-white'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+          className={`px-3 py-1.5 rounded-lg transition-colors ${roleFilter === 'ADMIN'
+            ? 'bg-rose-600 text-white'
+            : 'text-slate-600 hover:bg-slate-100'
+            }`}
         >
           Admins ({users.filter((u) => u.role === 'ADMIN').length})
         </button>
@@ -137,13 +133,12 @@ const AdminUsers = () => {
                   <td className="px-5 py-4 text-slate-500">{u.email}</td>
                   <td className="px-5 py-4">
                     <span
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                        u.role === 'ADMIN'
-                          ? 'bg-rose-100 text-rose-800'
-                          : u.role === 'SELLER'
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${u.role === 'ADMIN'
+                        ? 'bg-rose-100 text-rose-800'
+                        : u.role === 'SELLER'
                           ? 'bg-indigo-100 text-indigo-800'
                           : 'bg-emerald-100 text-emerald-800'
-                      }`}
+                        }`}
                     >
                       {u.role}
                     </span>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import {
   ArrowLeft,
@@ -9,6 +8,7 @@ import {
   Truck,
   AlertCircle,
 } from 'lucide-react';
+import OrderService from '../../services/OrderService';
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -20,7 +20,7 @@ const OrderDetails = () => {
     const fetchOrderDetails = async () => {
       try {
         setLoading(true);
-        const res = await api.get(`/orders/${id}`);
+        const res = await OrderService.getOrder(id);
         setOrder(res.data);
       } catch (err) {
         console.error('Failed to fetch order details:', err);
@@ -58,7 +58,7 @@ const OrderDetails = () => {
 
   return (
     <div id="order-details-page" className="max-w-4xl mx-auto space-y-8 pb-16">
-      
+
       {/* Top navigation */}
       <div className="flex items-center justify-between">
         <Link
@@ -71,13 +71,12 @@ const OrderDetails = () => {
         </Link>
 
         <span
-          className={`text-xs font-bold px-3 py-1 rounded uppercase tracking-wider ${
-            order.status === 'PLACED'
-              ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300'
-              : order.status === 'PROCESSING'
+          className={`text-xs font-bold px-3 py-1 rounded uppercase tracking-wider ${order.status === 'PLACED'
+            ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300'
+            : order.status === 'PROCESSING'
               ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300'
               : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300'
-          }`}
+            }`}
         >
           Status: {order.status}
         </span>
@@ -134,7 +133,7 @@ const OrderDetails = () => {
 
         {/* Details Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          
+
           {/* Shipping Address */}
           <div className="p-4 rounded-lg bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 space-y-1.5 text-xs">
             <div className="flex items-center gap-1.5 font-bold text-gray-800 dark:text-slate-200">
