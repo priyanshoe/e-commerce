@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import {
@@ -17,6 +16,8 @@ import {
   Calendar,
   AlertCircle,
 } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
 
 const BusinessDetails = () => {
   const { id } = useParams();
@@ -33,8 +34,8 @@ const BusinessDetails = () => {
       try {
         setLoading(true);
         const [bizRes, prodRes] = await Promise.all([
-          api.get(`/businesses/${id}`),
-          api.get('/products', { params: { businessId: id } }),
+          BusinesseService.getBusinessById(id),
+          ProductService.getProductsByBusinesse(id),
         ]);
 
         const biz = bizRes.data;
@@ -68,7 +69,7 @@ const BusinessDetails = () => {
     if (!window.confirm(confirmMsg)) return;
 
     try {
-      await api.delete(`/businesses/${id}`);
+      await BusinesseService.deleteItem(id);
       navigate('/seller/businesses');
     } catch (err) {
       console.error('Failed to delete business:', err);
@@ -103,7 +104,7 @@ const BusinessDetails = () => {
 
   return (
     <div id="business-details-page" className="max-w-5xl mx-auto space-y-8 pb-16">
-      
+
       {/* Top Bar */}
       <div className="flex items-center justify-between">
         <Link

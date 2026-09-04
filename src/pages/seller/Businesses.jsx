@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import {
@@ -16,6 +15,8 @@ import {
   Calendar,
   AlertTriangle,
 } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
 
 const Businesses = () => {
   const { user } = useAuth();
@@ -29,8 +30,8 @@ const Businesses = () => {
     try {
       setLoading(true);
       const [bizRes, prodRes] = await Promise.all([
-        api.get('/businesses', { params: { sellerId: user.id } }),
-        api.get('/products'),
+        BusinesseService.getBusinessesByUser(user.id),
+        ProductService.getProductsByBusinesse(user.id)
       ]);
       setBusinesses(bizRes.data);
       setProducts(prodRes.data);
@@ -55,7 +56,7 @@ const Businesses = () => {
 
     try {
       setDeletingId(bizId);
-      await api.delete(`/businesses/${bizId}`);
+      await BusinesseService.deleteItem(bizId);;
       await fetchBusinesses();
     } catch (err) {
       console.error('Failed to delete business:', err);
@@ -71,7 +72,7 @@ const Businesses = () => {
 
   return (
     <div id="seller-businesses-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -134,7 +135,7 @@ const Businesses = () => {
                         Registered on {business.createdAt || 'Recent'}
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 uppercase tracking-wider">
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${business.status === "ACTIVE" ? "bg-emerald-100 text-emerald-800" : " bg-rose-100 text-rose-800"} uppercase tracking-wider`}>
                       {business.status}
                     </span>
                   </div>

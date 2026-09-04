@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import {
@@ -14,6 +13,8 @@ import {
   Store,
   AlertCircle,
 } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
 
 const BusinessProducts = () => {
   const { id } = useParams();
@@ -29,8 +30,8 @@ const BusinessProducts = () => {
     try {
       setLoading(true);
       const [bizRes, prodRes] = await Promise.all([
-        api.get(`/businesses/${id}`),
-        api.get('/products', { params: { businessId: id } }),
+        BusinesseService.getBusinessById(id),
+        ProductService.getProductsByBusinesse(id),
       ]);
 
       const biz = bizRes.data;
@@ -62,7 +63,7 @@ const BusinessProducts = () => {
 
     try {
       setDeletingId(productId);
-      await api.delete(`/products/${productId}`);
+      await ProductService.deleteItem(productId);
       await fetchBusinessAndProducts();
     } catch (err) {
       console.error('Failed to delete product:', err);
@@ -89,7 +90,7 @@ const BusinessProducts = () => {
 
   return (
     <div id="business-products-page" className="max-w-6xl mx-auto space-y-8 pb-16">
-      
+
       {/* Top Breadcrumb Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
@@ -152,7 +153,7 @@ const BusinessProducts = () => {
               <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
                 {products.map((prod) => (
                   <tr key={prod.id} className="hover:bg-slate-50/70 transition-colors">
-                    
+
                     {/* Thumbnail + Name */}
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
@@ -193,13 +194,12 @@ const BusinessProducts = () => {
                     {/* Stock Badge */}
                     <td className="px-4 py-4">
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          prod.stock <= 0
-                            ? 'bg-rose-100 text-rose-800'
-                            : prod.stock < 5
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${prod.stock <= 0
+                          ? 'bg-rose-100 text-rose-800'
+                          : prod.stock < 5
                             ? 'bg-amber-100 text-amber-800'
                             : 'bg-emerald-100 text-emerald-800'
-                        }`}
+                          }`}
                       >
                         {prod.stock} units
                       </span>

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import api from '../../api/api';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import { Package, ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
+import BusinesseService from '../../services/BusinesseService';
+import ProductService from '../../services/ProductService';
 
 const EditProduct = () => {
   const { id: businessId, productId } = useParams();
@@ -29,8 +30,8 @@ const EditProduct = () => {
       try {
         setLoading(true);
         const [bizRes, prodRes] = await Promise.all([
-          api.get(`/businesses/${businessId}`),
-          api.get(`/products/${productId}`),
+          BusinesseService.getBusinessById(businessId),
+          ProductService.getProduct(productId),
         ]);
 
         const biz = bizRes.data;
@@ -74,15 +75,15 @@ const EditProduct = () => {
 
     try {
       setSaving(true);
-      // REST API PATCH /products/:productId
-      await api.patch(`/products/${productId}`, {
+      const data = {
         name: formData.name.trim(),
         description: formData.description.trim(),
         price: parseFloat(formData.price),
         category: formData.category,
         image: formData.image.trim(),
         stock: parseInt(formData.stock, 10),
-      });
+      };
+      await ProductService.update(productId, data)
 
       navigate(`/seller/businesses/${businessId}/products`);
     } catch (err) {
@@ -99,7 +100,7 @@ const EditProduct = () => {
 
   return (
     <div id="edit-product-page" className="max-w-2xl mx-auto space-y-6 pb-16">
-      
+
       {/* Back Link */}
       <Link
         to={`/seller/businesses/${businessId}/products`}
@@ -110,7 +111,7 @@ const EditProduct = () => {
       </Link>
 
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
-        
+
         {/* Header */}
         <div className="space-y-1">
           <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3">
