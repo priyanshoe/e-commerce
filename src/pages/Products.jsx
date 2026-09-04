@@ -81,9 +81,9 @@ const Products = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Explore Catalog</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Product Catalogue</h1>
           <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">
-            Browse our curated multi-seller inventory with real-time stock
+            Browse products from independent businesses, with current stock availability.
           </p>
         </div>
 
@@ -93,7 +93,7 @@ const Products = () => {
           <input
             id="product-search-input"
             type="text"
-            placeholder="Search products..."
+            placeholder="Search the catalogue"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500"
@@ -139,13 +139,13 @@ const Products = () => {
 
       {/* Product Grid */}
       {loading ? (
-        <Loading message="Fetching products from catalog..." />
+        <Loading message="Loading products..." />
       ) : filteredProducts.length === 0 ? (
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-12 text-center space-y-3 transition-colors duration-200">
           <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-slate-500 mx-auto flex items-center justify-center">
             <PackageOpen className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-semibold text-gray-900 dark:text-white">No products found</h3>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">No matching products</h3>
           <p className="text-xs text-gray-500 dark:text-slate-400 max-w-sm mx-auto">
             Try adjusting your search terms or selecting a different category filter.
           </p>

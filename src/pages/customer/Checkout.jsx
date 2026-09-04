@@ -43,7 +43,7 @@ const Checkout = () => {
     return (
       <div className="max-w-md mx-auto py-16 text-center space-y-4">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Your Cart is Empty</h2>
-        <p className="text-xs text-gray-500 dark:text-slate-400">Please add products to your cart before proceeding to checkout.</p>
+        <p className="text-xs text-gray-500 dark:text-slate-400">Add at least one item to your cart before checking out.</p>
         <Link
           to="/products"
           className="inline-flex items-center gap-2 bg-indigo-600 text-white text-xs font-semibold px-4 py-2 rounded-lg"
@@ -119,7 +119,7 @@ const Checkout = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Checkout</h1>
-          <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Finalize your delivery and payment preferences</p>
+          <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Confirm your delivery details and payment method.</p>
         </div>
         <Link
           to="/customer/cart"
@@ -322,9 +322,9 @@ const Checkout = () => {
               </div>
             ) : (
               <div className="p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-900/60 rounded-lg text-emerald-900 dark:text-emerald-200 text-xs">
-                <p className="font-semibold mb-0.5">Cash on Delivery Selected</p>
+                <p className="font-semibold mb-0.5">Cash on Delivery</p>
                 <p className="text-emerald-700 dark:text-emerald-300">
-                  You will pay the exact total of <strong>${cartSubtotal.toFixed(2)}</strong> in cash when the delivery courier arrives.
+                  Pay <strong>${cartSubtotal.toFixed(2)}</strong> directly to the delivery representative when your order arrives.
                 </p>
               </div>
             )}

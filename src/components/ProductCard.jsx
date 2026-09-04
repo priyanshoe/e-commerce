@@ -21,7 +21,7 @@ const ProductCard = ({ product, businessName }) => {
     }
 
     if (user.role !== 'CUSTOMER') {
-      alert('Only registered Customers can add items to cart. Please login as a Customer.');
+      alert('Please sign in with a customer account to add items to your cart.');
       return;
     }
 

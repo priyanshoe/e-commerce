@@ -46,7 +46,7 @@ const AdminDashboard = () => {
   }, []);
 
   if (loading) {
-    return <Loading fullScreen message="Loading administrative dashboard..." />;
+    return <Loading fullScreen message="Loading administration dashboard..." />;
   }
 
   const customers = users.filter((u) => u.role === 'CUSTOMER');
@@ -59,9 +59,9 @@ const AdminDashboard = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Overview</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Marketplace Overview</h1>
           <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">
-            Global system analytics and administrative management controls
+            Monitor marketplace activity and manage operational records.
           </p>
         </div>
         <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full border border-gray-200 dark:border-slate-700 self-start sm:self-auto">

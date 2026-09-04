@@ -17,7 +17,7 @@
     {
       "id": "3",
       "name": "Alex Admin",
-      "email": "admin@shop.com",
+      "email": "admin@demo.com",
       "password": "123456",
       "role": "ADMIN"
     },
@@ -69,17 +69,6 @@
       "status": "ACTIVE",
       "createdAt": "2026-09-03",
       "id": "sOchFRDSQhM"
-    },
-    {
-      "sellerId": "NPKhzxl5Te8",
-      "name": "rygertrer",
-      "description": "fgefefef",
-      "email": "efefef@fdgd.fthd",
-      "phone": "efesfesfe",
-      "address": "efefesfesfefe",
-      "status": "INACTIVE",
-      "createdAt": "2026-09-03",
-      "id": "7XgeneEz2v4"
     }
   ],
   "products": [
@@ -172,7 +161,7 @@
       "id": "4WCvmyMEP24"
     },
     {
-      "businessId": "7XgeneEz2v4",
+      "businessId": null,
       "name": "dsggeseg",
       "description": "sefesfse",
       "price": 43,

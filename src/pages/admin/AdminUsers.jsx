@@ -43,7 +43,7 @@ const AdminUsers = () => {
   }, [users, roleFilter, searchTerm]);
 
   if (loading) {
-    return <Loading fullScreen message="Loading users from REST API..." />;
+    return <Loading fullScreen message="Loading user accounts..." />;
   }
 
   return (
@@ -56,7 +56,7 @@ const AdminUsers = () => {
             User Management
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            View all registered Customer, Seller, and Administrator accounts.
+            Review customer, seller, and administrator accounts.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ const AdminUsers = () => {
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search by name or email..."
+            placeholder="Search by name or email"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-indigo-500"

@@ -41,7 +41,7 @@ const CustomerDashboard = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Customer Dashboard</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Account Overview</h1>
           <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">
             Welcome back, {user?.name || 'Customer'} • Track orders and manage your shopping
           </p>
@@ -116,7 +116,7 @@ const CustomerDashboard = () => {
           <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-8 text-center space-y-3 transition-colors duration-200">
             <ShoppingBag className="w-10 h-10 text-gray-300 dark:text-slate-600 mx-auto" />
             <p className="text-sm font-semibold text-gray-800 dark:text-slate-200">No orders placed yet</p>
-            <p className="text-xs text-gray-400 dark:text-slate-500">Discover great products from our sellers and place your first order!</p>
+            <p className="text-xs text-gray-400 dark:text-slate-500">Browse the catalogue to find products from independent businesses.</p>
             <Link
               to="/products"
               className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-xs transition-colors"
@@ -172,7 +172,7 @@ const CustomerDashboard = () => {
             </div>
             <div>
               <h3 className="text-sm font-bold text-gray-900 dark:text-white">Browse Catalog</h3>
-              <p className="text-xs text-gray-500 dark:text-slate-400">Discover newly added products from all businesses</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400">Explore products recently added by our businesses.</p>
             </div>
           </div>
           <ArrowRight className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -188,7 +188,7 @@ const CustomerDashboard = () => {
             </div>
             <div>
               <h3 className="text-sm font-bold text-gray-900 dark:text-white">Cart & Checkout</h3>
-              <p className="text-xs text-gray-500 dark:text-slate-400">Review items in your cart and complete payment</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400">Review your selections and complete your purchase.</p>
             </div>
           </div>
           <ArrowRight className="w-4 h-4 text-gray-700 dark:text-slate-300" />

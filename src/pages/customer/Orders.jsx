@@ -49,7 +49,7 @@ const Orders = () => {
         : orders;
 
   if (loading) {
-    return <Loading fullScreen message="Loading your order history..." />;
+    return <Loading fullScreen message="Loading your orders..." />;
   }
 
   return (
@@ -60,7 +60,7 @@ const Orders = () => {
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">My Orders</h1>
           <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-0.5">
-            Review active shipments and historical purchases
+            Review your purchases and follow each order’s progress.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ const Orders = () => {
           <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-slate-500 mx-auto flex items-center justify-center">
             <Package className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-semibold text-gray-900 dark:text-white">No orders found</h3>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">No orders yet</h3>
           <p className="text-xs text-gray-500 dark:text-slate-400 max-w-sm mx-auto">
             {filterTab === 'ACTIVE'
               ? 'You have no current active orders in progress.'

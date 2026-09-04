@@ -57,7 +57,7 @@ const Login = () => {
             <LogIn className="w-5 h-5" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Sign In</h1>
-          <p className="text-xs text-gray-500 dark:text-slate-400">Access your role-based e-commerce workspace</p>
+          <p className="text-xs text-gray-500 dark:text-slate-400">Sign in to access your marketplace account.</p>
         </div>
 
         {/* Quick Demo Credentials Panel */}
@@ -65,7 +65,7 @@ const Login = () => {
           <div className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest text-center">
             Quick Fill Demo Accounts
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               id="demo-fill-customer"
@@ -86,15 +86,15 @@ const Login = () => {
               <span className="text-[10px] text-gray-400 dark:text-slate-500">Sarah</span>
             </button>
 
-            <button
+            {/* <button
               type="button"
               id="demo-fill-admin"
-              onClick={() => handleQuickLogin('admin@shop.com', '123456')}
+              onClick={() => handleQuickLogin('admin@demo.com', '123456')}
               className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-gray-700 dark:text-slate-200 hover:text-rose-800 dark:hover:text-rose-300 border border-gray-200 dark:border-slate-700 hover:border-rose-300 dark:hover:border-rose-600 rounded-lg text-xs font-medium text-center transition-colors cursor-pointer"
             >
               <span className="block font-bold">Admin</span>
               <span className="text-[10px] text-gray-400 dark:text-slate-500">Alex</span>
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -117,7 +117,7 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g. john@example.com"
+              placeholder="name@example.com"
               required
               className="w-full px-3.5 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500"
             />

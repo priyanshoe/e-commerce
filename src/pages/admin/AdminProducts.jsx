@@ -57,7 +57,7 @@ const AdminProducts = () => {
   }, [products, categoryFilter, searchTerm]);
 
   if (loading) {
-    return <Loading fullScreen message="Loading platform catalog..." />;
+    return <Loading fullScreen message="Loading the product catalogue..." />;
   }
 
   return (
@@ -67,10 +67,10 @@ const AdminProducts = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Platform Product Catalog
+            Product Catalogue
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Full view of all products listed across all seller businesses.
+            Review products and inventory across all registered businesses.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ const AdminProducts = () => {
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search products"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-indigo-500"

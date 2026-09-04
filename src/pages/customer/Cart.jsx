@@ -17,7 +17,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   if (loading) {
-    return <Loading fullScreen message="Loading your shopping cart..." />;
+    return <Loading fullScreen message="Loading your cart..." />;
   }
 
   if (cartItems.length === 0) {
@@ -28,7 +28,7 @@ const Cart = () => {
         </div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Your Cart is Empty</h2>
         <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400">
-          Looks like you haven't added any products to your cart yet. Explore our curated collections!
+          Browse the catalogue to add items to your cart.
         </p>
         <div className="pt-2">
           <Link
@@ -172,11 +172,11 @@ const Cart = () => {
                 <span className="font-semibold text-gray-900 dark:text-white">${cartSubtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
-                <span>Estimated Shipping</span>
+                <span>Delivery</span>
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400">FREE</span>
               </div>
               <div className="flex justify-between">
-                <span>Sales Tax (Simulated)</span>
+                <span>Taxes</span>
                 <span className="font-semibold text-gray-900 dark:text-white">$0.00</span>
               </div>
 
@@ -199,7 +199,7 @@ const Cart = () => {
 
             <div className="flex items-center justify-center gap-2 text-[11px] text-gray-400 dark:text-slate-500 pt-1">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>Simulated Safe Checkout with Mock REST API</span>
+              <span>Your order details are securely processed.</span>
             </div>
           </div>
         </div>

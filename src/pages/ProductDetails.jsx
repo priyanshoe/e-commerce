@@ -61,12 +61,12 @@ const ProductDetails = () => {
     }
 
     if (user.role !== 'CUSTOMER') {
-      alert('Only customers can add items to cart. Please log in with a customer account.');
+      alert('Please sign in with a customer account to add items to your cart.');
       return;
     }
 
     if (quantity > product.stock) {
-      alert('Cannot add more than available stock.');
+      alert('The requested quantity exceeds the available inventory.');
       return;
     }
 
@@ -81,7 +81,7 @@ const ProductDetails = () => {
   };
 
   if (loading) {
-    return <Loading fullScreen message="Fetching product details..." />;
+    return <Loading fullScreen message="Loading product details..." />;
   }
 
   if (error || !product) {
@@ -91,7 +91,7 @@ const ProductDetails = () => {
           <AlertCircle className="w-6 h-6" />
         </div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Product Unavailable</h2>
-        <p className="text-xs text-gray-500 dark:text-slate-400">{error || 'This product does not exist.'}</p>
+        <p className="text-xs text-gray-500 dark:text-slate-400">{error || 'This product is no longer available.'}</p>
         <Link
           to="/products"
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg"
@@ -253,7 +253,7 @@ const ProductDetails = () => {
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-gray-400 dark:text-slate-500" />
-                <span>REST Mock Verified</span>
+                <span>Secure checkout</span>
               </div>
             </div>
           </div>

@@ -57,7 +57,7 @@ const SellerDashboard = () => {
   }, [user]);
 
   if (loading) {
-    return <Loading fullScreen message="Loading seller portal..." />;
+    return <Loading fullScreen message="Loading your business dashboard..." />;
   }
 
   const totalStock = products.reduce((acc, p) => acc + (Number(p.stock) || 0), 0);
@@ -85,8 +85,8 @@ const SellerDashboard = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Seller Dashboard</h1>
-          <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">Overview of your commerce ecosystem</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Business Overview</h1>
+          <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">Monitor your stores, inventory, and order activity.</p>
         </div>
         <Link
           id="seller-create-business-btn"
@@ -103,9 +103,9 @@ const SellerDashboard = () => {
         <div className="p-4 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-900/60 rounded-xl flex items-start gap-3 text-amber-900 dark:text-amber-200 text-xs">
           <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div>
-            <p className="font-bold text-sm">Please register your business before adding products.</p>
+            <p className="font-bold text-sm">Create a business profile before adding products.</p>
             <p className="text-amber-700 dark:text-amber-300 mt-0.5">
-              Each product in the system belongs to a registered business. Start by setting up your first business!
+              Products must be assigned to a registered business. Start by creating your first business profile.
             </p>
             <Link
               to="/seller/businesses/create"
@@ -229,7 +229,7 @@ const SellerDashboard = () => {
               <Plus className="w-6 h-6" />
             </div>
             <p className="font-semibold text-gray-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 text-sm">New Venture</p>
-            <p className="text-xs text-gray-400 dark:text-slate-500 mt-1">Register another business</p>
+            <p className="text-xs text-gray-400 dark:text-slate-500 mt-1">Create an additional business profile</p>
           </Link>
         </div>
       </div>

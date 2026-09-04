@@ -112,7 +112,7 @@ const CreateBusiness = () => {
               rows={3}
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Brief summary of what this storefront sells..."
+              placeholder="Describe the products and services your business offers"
               className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -158,7 +158,7 @@ const CreateBusiness = () => {
               type="text"
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              placeholder="Suite, Street, City, State, ZIP"
+              placeholder="Street address, city, state, and postal code"
               required
               className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500"
             />
