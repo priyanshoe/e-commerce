@@ -229,7 +229,7 @@
     {
       "customerId": "HslZG6M1tC4",
       "productId": "5",
-      "quantity": 1,
+      "quantity": 3,
       "id": "rYIfgdOKy8U"
     }
   ],
@@ -332,7 +332,7 @@
       ],
       "totalAmount": 82,
       "paymentMethod": "Card Payment",
-      "status": "DELIVERED",
+      "status": "PROCESSING",
       "orderDate": "2026-09-03",
       "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
       "cardLast4": "4242",
