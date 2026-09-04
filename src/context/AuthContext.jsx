@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../api/api';
 import AuthService from '../services/AuthService';
 
 const AuthContext = createContext(null);
@@ -79,7 +78,7 @@ export const AuthProvider = ({ children }) => {
   // Quick helper to switch demo accounts for instant learning & testing
   const switchDemoRole = async (targetRole) => {
     try {
-      const response = await api.get('/users');
+      const response = await AuthService.findAll();
       const targetUser = response.data.find((u) => u.role === targetRole);
       if (targetUser) {
         const mockToken = `mock-token-${targetUser.role.toLowerCase()}-${targetUser.id}-${Date.now()}`;

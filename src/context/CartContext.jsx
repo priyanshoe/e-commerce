@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import api from '../api/api';
 import { useAuth } from './AuthContext';
 import CartService from '../services/CartService';
+import ProductService from '../services/ProductService';
 
 const CartContext = createContext(null);
 
@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
       const cartRes = await CartService.getCartByUser(user.id)
 
       // Also get all products to combine rich product info
-      const productsRes = await api.get('/products');
+      const productsRes = await ProductService.getProducts();
       const products = productsRes.data;
 
       const itemsWithProduct = cartRes.data.map((item) => {
@@ -60,7 +60,6 @@ export const CartProvider = ({ children }) => {
         // Update quantity
         const newQty = existing.quantity + quantity;
         await CartService.update(existing.id, newQty);
-        // await api.patch(`/cartItems/${existing.id}`, { quantity: newQty });
       } else {
         // Create new cart item
         const data = {

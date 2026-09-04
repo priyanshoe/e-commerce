@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import api from '../api/api';
 import Loading from '../components/Loading';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -16,6 +15,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import ProductService from '../services/ProductService';
+import BusinesseService from '../services/BusinesseService';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -40,7 +40,7 @@ const ProductDetails = () => {
         setProduct(prodData);
 
         if (prodData.businessId) {
-          const bizRes = await api.get(`/businesses/${prodData.businessId}`);
+          const bizRes = await BusinesseService.getBusinessById(prodData.businessId);
           setBusiness(bizRes.data);
         }
       } catch (err) {

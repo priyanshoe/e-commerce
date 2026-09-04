@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/api';
 import Loading from '../../components/Loading';
 import {
   Users,
