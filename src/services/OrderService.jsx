@@ -53,11 +53,39 @@ async function save(data) {
 
 async function update(id, status) {
     try {
-        const result = await axios.patch(url + "/orders/" + id, { status: status });
+        const orderResult = await axios.get(url + "/orders/" + id);
+        const order = orderResult.data;
+        const shouldAdjustStock =
+            (status === "SHIPPED" || status === "DELIVERED") &&
+            !order.inventoryAdjusted;
 
-        if (status === "DELIVERED") {
-            // update products quantity
+        if (shouldAdjustStock) {
+            // Fetch each product's current stock so a status change never overwrites
+            // a stock edit made after the order was placed.
+            const quantitiesByProduct = (order.products || []).reduce((quantities, item) => {
+                const productId = String(item.productId);
+                quantities.set(productId, (quantities.get(productId) || 0) + (Number(item.quantity) || 0));
+                return quantities;
+            }, new Map());
+
+            await Promise.all(
+                Array.from(quantitiesByProduct).map(async ([productId, orderedQuantity]) => {
+                    const productResult = await axios.get(url + "/products/" + productId);
+                    const currentStock = Number(productResult.data.stock) || 0;
+
+                    await axios.patch(url + "/products/" + productId, {
+                        stock: Math.max(0, currentStock - orderedQuantity),
+                    });
+                })
+            );
         }
+
+        // Persist the flag with the status. It prevents a later SHIPPED -> DELIVERED
+        // update from subtracting the same order quantities a second time.
+        const result = await axios.patch(url + "/orders/" + id, {
+            status,
+            ...(shouldAdjustStock ? { inventoryAdjusted: true } : {}),
+        });
 
         return { success: true, status: 200, data: result.data };
     } catch (error) {

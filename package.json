@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "vite build --mode development",
-    "server": "json-server --watch db.json --host 0.0.0.0 --port $PORT"
+    "server": "json-server --watch db.json --host 0.0.0.0 --port 8080"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

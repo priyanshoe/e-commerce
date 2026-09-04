@@ -68,12 +68,12 @@ const Navbar = () => {
               className="flex items-center gap-2.5 hover:opacity-95 transition-opacity"
             >
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-base shadow-xs">
-                L
+                Q
               </div>
               <div className="flex items-baseline">
-                <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-white">LearnerStore</span>
+                <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-white">QuickCart</span>
                 <span className="text-gray-400 dark:text-slate-500 font-normal ml-2 text-xs uppercase tracking-widest hidden sm:inline">
-                  {user?.role ? `${user.role} Portal` : 'Portal'}
+                  15 minutes
                 </span>
               </div>
             </Link>
@@ -168,7 +168,7 @@ const Navbar = () => {
             </button>
 
             {/* Quick Demo Switcher Pill */}
-            <div className="relative">
+            {/* <div className="relative">
               <button
                 id="demo-switcher-btn"
                 onClick={() => setDemoMenuOpen(!demoMenuOpen)}
@@ -211,7 +211,7 @@ const Navbar = () => {
                   </button>
                 </div>
               )}
-            </div>
+            </div> */}
 
             {/* Customer Cart Icon (Only if Guest or Customer) */}
             {(!isAuthenticated() || user?.role === 'CUSTOMER') && (

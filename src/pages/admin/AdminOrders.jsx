@@ -29,8 +29,13 @@ const AdminOrders = () => {
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
       setUpdatingId(orderId);
-      await OrderService.update(orderId, newStatus);
-      await fetchAdminOrders();
+      const res = await OrderService.update(orderId, newStatus);
+      // Update only the changed order; re-fetching here remounted the page loader.
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId ? { ...order, ...res.data } : order
+        )
+      );
     } catch (err) {
       console.error('Failed to update order status:', err);
       alert('Failed to update status.');

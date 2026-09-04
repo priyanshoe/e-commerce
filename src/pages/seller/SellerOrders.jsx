@@ -72,8 +72,13 @@ const SellerOrders = () => {
     try {
       setUpdatingId(orderId);
       // REST API PATCH /orders/:id
-      await OrderService.update(orderId, newStatus)
-      await fetchSellerOrders();
+      const res = await OrderService.update(orderId, newStatus);
+      // Keep the current page mounted instead of showing the full-screen loader again.
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId ? { ...order, ...res.data } : order
+        )
+      );
     } catch (err) {
       console.error('Failed to update order status:', err);
       alert('Failed to update order status.');

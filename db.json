@@ -135,7 +135,7 @@
       "price": 54,
       "category": "Home & Living",
       "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80",
-      "stock": 15,
+      "stock": 12,
       "createdAt": "2026-02-18"
     },
     {
@@ -156,7 +156,7 @@
       "price": 12,
       "category": "Home & Living",
       "image": "https://bakewithshivesh.com/wp-content/uploads/2021/03/IMG_3093-scaled.jpg",
-      "stock": 10,
+      "stock": 0,
       "createdAt": "2026-09-03",
       "id": "hXuDcSciG0Q"
     },
@@ -167,7 +167,7 @@
       "price": 23,
       "category": "Home & Living",
       "image": "https://theobroma.in/cdn/shop/files/EgglessFreshCreamPineapplePastry_b527b752-ba33-4e48-97d5-cc56b2b1a690.jpg?v=1711099923",
-      "stock": 10,
+      "stock": 8,
       "createdAt": "2026-09-03",
       "id": "4WCvmyMEP24"
     },
@@ -225,12 +225,6 @@
       "productId": "5",
       "quantity": 1,
       "id": "3CRpU49cMk4"
-    },
-    {
-      "customerId": "HslZG6M1tC4",
-      "productId": "5",
-      "quantity": 3,
-      "id": "rYIfgdOKy8U"
     }
   ],
   "orders": [
@@ -332,11 +326,12 @@
       ],
       "totalAmount": 82,
       "paymentMethod": "Card Payment",
-      "status": "PROCESSING",
+      "status": "DELIVERED",
       "orderDate": "2026-09-03",
       "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
       "cardLast4": "4242",
-      "id": "AI5dYGcEzD4"
+      "id": "AI5dYGcEzD4",
+      "inventoryAdjusted": true
     },
     {
       "customerId": "HslZG6M1tC4",
@@ -380,11 +375,41 @@
       ],
       "totalAmount": 36,
       "paymentMethod": "Cash on Delivery",
+      "status": "DELIVERED",
+      "orderDate": "2026-09-04",
+      "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
+      "cardLast4": null,
+      "id": "lVCnnGq6yTk",
+      "inventoryAdjusted": true
+    },
+    {
+      "customerId": "HslZG6M1tC4",
+      "products": [
+        {
+          "productId": "5",
+          "name": "Solid Oak Wooden Desk Organizer",
+          "businessId": "2",
+          "price": 54,
+          "quantity": 3,
+          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80"
+        },
+        {
+          "productId": "hXuDcSciG0Q",
+          "name": "Choclate cup cake",
+          "businessId": "sOchFRDSQhM",
+          "price": 12,
+          "quantity": 4,
+          "image": "https://bakewithshivesh.com/wp-content/uploads/2021/03/IMG_3093-scaled.jpg"
+        }
+      ],
+      "totalAmount": 210,
+      "paymentMethod": "Cash on Delivery",
       "status": "SHIPPED",
       "orderDate": "2026-09-04",
       "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
       "cardLast4": null,
-      "id": "lVCnnGq6yTk"
+      "id": "MEp75MI_Cz4",
+      "inventoryAdjusted": true
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

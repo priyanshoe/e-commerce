@@ -48,6 +48,8 @@ async function update(id, data) {
     }
 }
 
+// update quantity
+
 async function deleteItem(id) {
     try {
         const result = await axios.delete(url + "/products/" + id);
