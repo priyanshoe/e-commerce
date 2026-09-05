@@ -10,21 +10,28 @@ A modern and responsive full-stack e-commerce application designed to provide a 
 The application also includes role-based functionality for managing products, customers, orders, and other e-commerce operations.
 
 ## ✨ Features
-🔐 User registration and authentication
-🛍️ Product browsing and product details
-🔎 Product search and filtering
-🛒 Add to cart and cart management
-📦 Order placement and order management
-📱 Responsive design for desktop, tablet, mobile and more
-👨‍💼 Admin/product management
-📊 Admin/Customer/Seller management dashboard
-🛠️ Technologies Used
+1. 🔐 User registration and authentication
+2. 🛍️ Product browsing and product details
+3. 🔎 Product search and filtering
+4. 🛒 Add to cart and cart management
+5. 📦 Order placement and order management
+6. 📱 Responsive design for desktop, tablet, mobile and more
+7. 👨‍💼 Admin/product management
+8. 📊 Admin/Customer/Seller management dashboard
+9. 🛠️ Technologies Used
+
 Frontend: React.js, JavaScript, HTML, CSS
+
 Styling: Tailwind CSS / Bootstrap
+
 Backend: REST API
+
 HTTP Client: Axios
+
 Build Tool: Vite
+
 Database: JSON Server / Database
+
 Deployement: Render services
 
 ## 🚀 Getting Started
@@ -42,6 +49,6 @@ Deployement: Render services
 5. Run the server:
    `npm run dev:server`
 
-# 📌 Project Purpose
+## 📌 Project Purpose
 
 This project was built to demonstrate the development of a complete e-commerce platform using modern web development technologies, focusing on responsive UI, reusable React components, API integration, state management, authentication, and real-world e-commerce workflows.
