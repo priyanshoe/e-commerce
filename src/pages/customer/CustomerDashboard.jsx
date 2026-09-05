@@ -8,7 +8,7 @@ import {
   ShoppingCart,
   ArrowRight,
 } from 'lucide-react';
-import AuthService from '../../services/AuthService';
+import OrderService from '../../services/OrderService';
 
 const CustomerDashboard = () => {
   const { user } = useAuth();
@@ -21,7 +21,7 @@ const CustomerDashboard = () => {
       if (!user) return;
       try {
         setLoading(true);
-        const res = await AuthService.getOrders(user.id)
+        const res = await OrderService.getOrderByUser(user.id)
         setOrders(res.data);
       } catch (error) {
         console.error('Failed to load orders:', error);

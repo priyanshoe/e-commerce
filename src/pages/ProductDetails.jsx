@@ -111,7 +111,7 @@ const ProductDetails = () => {
       {/* Back button */}
       <Link
         id="back-to-products-btn"
-        to={user.role === "ADMIN" ? "/admin/products" : "/products"}
+        to={user?.role === "ADMIN" ? "/admin/products" : "/products"}
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-800 px-3 py-1.5 rounded-lg transition-colors shadow-xs"
       >
         <ArrowLeft className="w-4 h-4" />

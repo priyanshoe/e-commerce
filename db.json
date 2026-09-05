@@ -20,20 +20,6 @@
       "email": "admin@demo.com",
       "password": "123456",
       "role": "ADMIN"
-    },
-    {
-      "name": "Jhon 2",
-      "email": "john2@example.com",
-      "password": "123456",
-      "role": "CUSTOMER",
-      "id": "EctEddVVurg"
-    },
-    {
-      "name": "Sarah 2",
-      "email": "sarah2@seller.com",
-      "password": "123456",
-      "role": "SELLER",
-      "id": "jaJOh1bSwig"
     }
   ],
   "businesses": [
@@ -91,7 +77,7 @@
       "price": 89.5,
       "category": "Electronics",
       "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
-      "stock": 18,
+      "stock": 0,
       "createdAt": "2026-02-05"
     },
     {
@@ -124,7 +110,7 @@
       "price": 54,
       "category": "Home & Living",
       "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80",
-      "stock": 12,
+      "stock": 26,
       "createdAt": "2026-02-18"
     },
     {
@@ -145,7 +131,7 @@
       "price": 12,
       "category": "Home & Living",
       "image": "https://bakewithshivesh.com/wp-content/uploads/2021/03/IMG_3093-scaled.jpg",
-      "stock": 0,
+      "stock": 16,
       "createdAt": "2026-09-03",
       "id": "hXuDcSciG0Q"
     },
@@ -180,63 +166,19 @@
       "id": "jttVsPASbz8"
     },
     {
-      "customerId": "1",
+      "customerId": "HslZG6M1tC4",
       "productId": "5",
-      "quantity": 1,
-      "id": "oCLzChW8uK8"
+      "quantity": 5,
+      "id": "uo-H6mdGvhE"
     },
     {
-      "customerId": "1",
-      "productId": "4",
+      "customerId": "HslZG6M1tC4",
+      "productId": "6",
       "quantity": 1,
-      "id": "48Ap994GgAU"
-    },
-    {
-      "customerId": "1",
-      "productId": "5",
-      "quantity": 1,
-      "id": "jKhgbsPti5Y"
-    },
-    {
-      "customerId": "1",
-      "productId": "3",
-      "quantity": 1,
-      "id": "E7DpIGd8cZQ"
-    },
-    {
-      "customerId": "1",
-      "productId": "5",
-      "quantity": 1,
-      "id": "UCq27egiezU"
-    },
-    {
-      "customerId": "1",
-      "productId": "5",
-      "quantity": 1,
-      "id": "3CRpU49cMk4"
+      "id": "j95tl9433kI"
     }
   ],
   "orders": [
-    {
-      "id": "1001",
-      "customerId": "HslZG6M1tC4",
-      "products": [
-        {
-          "productId": 3,
-          "name": "Ultra-Slim Ergonomic Wireless Mouse",
-          "businessId": 1,
-          "price": 45,
-          "quantity": 1,
-          "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80"
-        }
-      ],
-      "totalAmount": 45,
-      "paymentMethod": "Card Payment",
-      "status": "CANCELLED",
-      "orderDate": "2026-02-21",
-      "shippingAddress": "123 Maple Street, Apt 4B, New York, NY",
-      "cardLast4": "4242"
-    },
     {
       "customerId": "HslZG6M1tC4",
       "products": [
@@ -272,133 +214,6 @@
       "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
       "cardLast4": "4242",
       "id": "jyGigSP0MkQ"
-    },
-    {
-      "customerId": "HslZG6M1tC4",
-      "products": [
-        {
-          "productId": "5",
-          "name": "Solid Oak Wooden Desk Organizer",
-          "businessId": 2,
-          "price": 54,
-          "quantity": 2,
-          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80"
-        }
-      ],
-      "totalAmount": 108,
-      "paymentMethod": "Card Payment",
-      "status": "PLACED",
-      "orderDate": "2026-09-03",
-      "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
-      "cardLast4": "4242",
-      "id": "tyU7yaCGc3Q"
-    },
-    {
-      "customerId": "HslZG6M1tC4",
-      "products": [
-        {
-          "productId": "hXuDcSciG0Q",
-          "name": "Choclate cup cake",
-          "businessId": "sOchFRDSQhM",
-          "price": 12,
-          "quantity": 3,
-          "image": "https://bakewithshivesh.com/wp-content/uploads/2021/03/IMG_3093-scaled.jpg"
-        },
-        {
-          "productId": "4WCvmyMEP24",
-          "name": "Pineapple pastrie",
-          "businessId": "sOchFRDSQhM",
-          "price": 23,
-          "quantity": 2,
-          "image": "https://theobroma.in/cdn/shop/files/EgglessFreshCreamPineapplePastry_b527b752-ba33-4e48-97d5-cc56b2b1a690.jpg?v=1711099923"
-        }
-      ],
-      "totalAmount": 82,
-      "paymentMethod": "Card Payment",
-      "status": "DELIVERED",
-      "orderDate": "2026-09-03",
-      "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
-      "cardLast4": "4242",
-      "id": "AI5dYGcEzD4",
-      "inventoryAdjusted": true
-    },
-    {
-      "customerId": "HslZG6M1tC4",
-      "products": [
-        {
-          "productId": "6",
-          "name": "Warm Ambient LED Table Lamp",
-          "businessId": 2,
-          "price": 68,
-          "quantity": 1,
-          "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80"
-        },
-        {
-          "productId": "5",
-          "name": "Solid Oak Wooden Desk Organizer",
-          "businessId": 2,
-          "price": 54,
-          "quantity": 1,
-          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80"
-        }
-      ],
-      "totalAmount": 122,
-      "paymentMethod": "Cash on Delivery",
-      "status": "PROCESSING",
-      "orderDate": "2026-09-04",
-      "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
-      "cardLast4": null,
-      "id": "QVrkIewMkcU"
-    },
-    {
-      "customerId": "HslZG6M1tC4",
-      "products": [
-        {
-          "productId": "hXuDcSciG0Q",
-          "name": "Choclate cup cake",
-          "businessId": "sOchFRDSQhM",
-          "price": 12,
-          "quantity": 3,
-          "image": "https://bakewithshivesh.com/wp-content/uploads/2021/03/IMG_3093-scaled.jpg"
-        }
-      ],
-      "totalAmount": 36,
-      "paymentMethod": "Cash on Delivery",
-      "status": "DELIVERED",
-      "orderDate": "2026-09-04",
-      "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
-      "cardLast4": null,
-      "id": "lVCnnGq6yTk",
-      "inventoryAdjusted": true
-    },
-    {
-      "customerId": "HslZG6M1tC4",
-      "products": [
-        {
-          "productId": "5",
-          "name": "Solid Oak Wooden Desk Organizer",
-          "businessId": "2",
-          "price": 54,
-          "quantity": 3,
-          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80"
-        },
-        {
-          "productId": "hXuDcSciG0Q",
-          "name": "Choclate cup cake",
-          "businessId": "sOchFRDSQhM",
-          "price": 12,
-          "quantity": 4,
-          "image": "https://bakewithshivesh.com/wp-content/uploads/2021/03/IMG_3093-scaled.jpg"
-        }
-      ],
-      "totalAmount": 210,
-      "paymentMethod": "Cash on Delivery",
-      "status": "SHIPPED",
-      "orderDate": "2026-09-04",
-      "shippingAddress": "742 Evergreen Terrace, Springfield 97477, Tel: +1 (555) 019-2834",
-      "cardLast4": null,
-      "id": "MEp75MI_Cz4",
-      "inventoryAdjusted": true
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
