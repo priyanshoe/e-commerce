@@ -30,13 +30,13 @@ const Businesses = () => {
     try {
       setLoading(true);
       const [bizRes, prodRes] = await Promise.all([
-        BusinesseService.getBusinessesByUser(user.id),
-        ProductService.getProductsByBusinesse(user.id)
+        BusinesseService.getMyBusinesses(),
+        // ProductService.getProductsByBusinesse(user.id)
       ]);
       setBusinesses(bizRes.data);
-      setProducts(prodRes.data);
+      // setProducts(prodRes.data);
     } catch (err) {
-      console.error('Failed to load businesses:', err);
+      console.error('Failed to load businesses:', err.error);
     } finally {
       setLoading(false);
     }

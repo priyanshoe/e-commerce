@@ -30,21 +30,22 @@ export const AuthProvider = ({ children }) => {
   // Login handler
   const login = async (email, password) => {
     try {
-      const response = await AuthService.login(email, password);
-      const user = response.data;
-
-      // Generate a beginner-friendly mock token
-      const mockToken = `mock-token-${user.role.toLowerCase()}-${user.id}-${Date.now()}`;
+      const data = {
+        email, password
+      }
+      const response = await AuthService.login(data)
+      const mockToken = response.data?.data?.token;
+      const authUser = response.data?.data?.user
 
       // Update state and localStorage
-      setUser(user);
+      setUser(authUser);
       setToken(mockToken);
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(authUser));
       localStorage.setItem('token', mockToken);
 
-      return { success: true, user: user };
+      return { success: true, user: authUser };
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Login error:', error.error);
       return { success: false, message: error.error };
     }
   };
@@ -52,21 +53,22 @@ export const AuthProvider = ({ children }) => {
   // Register handler
   const register = async ({ name, email, password, role }) => {
     try {
-
-      const response = await AuthService.register({
+      const data = {
         name: name.trim(),
         email: email.trim().toLowerCase(),
         password,
         role: role || 'CUSTOMER',
-      });
+      }
+      const response = await AuthService.register(data);
 
-      const newUser = response.data;
-      const mockToken = `mock-token-${newUser.role.toLowerCase()}-${newUser.id}-${Date.now()}`;
+      const mockToken = response.data?.data?.token;
+      const newUser = response.data?.data?.user
 
+      // Update state and localStorage
       setUser(newUser);
       setToken(mockToken);
-      localStorage.setItem('user', JSON.stringify(newUser));
-      localStorage.setItem('token', mockToken);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', token);
 
       return { success: true, user: newUser };
     } catch (error) {
