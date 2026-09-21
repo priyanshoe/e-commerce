@@ -50,7 +50,7 @@ const BusinessDetails = () => {
         setBusiness(biz);
         setProducts(prodRes.data);
       } catch (err) {
-        console.error('Failed to load business details:', err);
+        console.error('Failed to load business details:', err.error);
         setError('Business not found or has been removed.');
       } finally {
         setLoading(false);

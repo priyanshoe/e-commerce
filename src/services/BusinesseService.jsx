@@ -5,25 +5,26 @@ const token = localStorage.getItem('token');
 
 async function getMyBusinesses() {
     try {
-        const result = await axios.get(`${url}/business/seller`, { headers: { Authorization: 'Bearer ' + token } });
+        const result = await axios.get(`${url}/business`, { headers: { Authorization: 'Bearer ' + token } });
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.response.data.message };
     }
 }
 
-async function getBusinesses() {
-    try {
-        const result = await axios.get(url + "/businesses")
-        return { success: true, status: 200, data: result.data };
-    } catch (error) {
-        throw { success: false, status: error.status || 500, error: error.message };
-    }
-}
+// async function getBusinesses() {
+//     try {
+//         const result = await axios.get(url + "/businesses")
+//         return { success: true, status: 200, data: result.data };
+//     } catch (error) {
+//         throw { success: false, status: error.status || 500, error: error.message };
+//     }
+// }
+
 async function getBusinessById(id) {
     try {
-        const result = await axios.get(url + "/businesses/" + id)
-        return { success: true, status: 200, data: result.data };
+        const result = await axios.get(url + "/business/" + id)
+        return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
     }
@@ -31,10 +32,10 @@ async function getBusinessById(id) {
 
 async function save(data) {
     try {
-        const result = await axios.post(url + "/business/create", data, {
+        const result = await axios.post(url + "/business", data, {
             headers: { Authorization: 'Bearer ' + token }
         });
-        return { success: true, status: 200, data: result.data };
+        return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
     }
@@ -42,8 +43,8 @@ async function save(data) {
 
 async function update(id, data) {
     try {
-        const result = await axios.patch(url + "/businesses/" + id, data);
-        return { success: true, status: 200, data: result.data };
+        const result = await axios.patch(url + "/business/" + id, data);
+        return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
     }
@@ -51,11 +52,11 @@ async function update(id, data) {
 
 async function deleteItem(id) {
     try {
-        const result = await axios.delete(url + "/businesses/" + id);
-        return { success: true, status: 200, data: result.data };
+        const result = await axios.delete(url + "/business/" + id);
+        return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
     }
 }
 
-export default { getBusinesses, getBusinessById, getMyBusinesses, save, update, deleteItem }
+export default { getMyBusinesses, getBusinessById, save, update, deleteItem }
