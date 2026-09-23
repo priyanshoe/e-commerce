@@ -21,10 +21,11 @@ async function getProduct(id) {
     }
 }
 
-async function getProductsByBusinesse(id) {
+async function getProductsByBusiness(id) {
     try {
-        const result = await axios.get(`${url}/products?businessId=${id}`);
-        return { success: true, status: 200, data: result.data };
+        const token = localStorage.getItem("token");
+        const result = await axios.get(`${url}/business/${id}/products`, { headers: { Authorization: 'Bearer ' + token } });
+        return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
     }
@@ -32,7 +33,11 @@ async function getProductsByBusinesse(id) {
 
 async function save(data) {
     try {
-        const result = await axios.post(url + "/products", data);
+        const token = localStorage.getItem("token");
+        const id = data.businessId;
+        // console.log(data.businessId);
+
+        const result = await axios.post(`${url}/business/${id}/product`, data, { headers: { Authorization: 'Bearer ' + token } });
         return { success: true, status: 200, data: result.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
@@ -41,7 +46,8 @@ async function save(data) {
 
 async function update(id, data) {
     try {
-        const result = await axios.patch(url + "/products/" + id, data);
+        const token = localStorage.getItem("token");
+        const result = await axios.patch(url + "/products/" + id, data, { headers: { Authorization: 'Bearer ' + token } });
         return { success: true, status: 200, data: result.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
@@ -50,7 +56,8 @@ async function update(id, data) {
 
 async function deleteItem(id) {
     try {
-        const result = await axios.delete(url + "/products/" + id);
+        const token = localStorage.getItem("token");
+        const result = await axios.delete(url + "/products/" + id, { headers: { Authorization: 'Bearer ' + token } });
         return { success: true, status: 200, data: result.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
@@ -60,4 +67,4 @@ async function deleteItem(id) {
 
 
 
-export default { getProducts, getProduct, getProductsByBusinesse, save, update, deleteItem }
+export default { getProducts, getProduct, getProductsByBusiness, save, update, deleteItem }

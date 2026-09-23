@@ -31,8 +31,10 @@ const Businesses = () => {
       setLoading(true);
       const [bizRes, prodRes] = await Promise.all([
         BusinessService.getMyBusinesses(),
-        // ProductService.getProductsByBusinesse(user.id)
+        // ProductService.getProductsByBusiness(user.id)
       ]);
+      console.log(bizRes);
+
       setBusinesses(bizRes.data);
       // setProducts(prodRes.data);
     } catch (err) {

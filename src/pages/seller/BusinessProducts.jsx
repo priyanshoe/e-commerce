@@ -29,22 +29,18 @@ const BusinessProducts = () => {
   const fetchBusinessAndProducts = async () => {
     try {
       setLoading(true);
-      const [bizRes, prodRes] = await Promise.all([
-        BusinessService.getBusinessById(id),
-        ProductService.getProductsByBusinesse(id),
-      ]);
-
+      const bizRes = await BusinessService.getBusinessById(id);
       const biz = bizRes.data;
 
       // Ownership security check
-      if (String(biz.sellerId) !== String(user?.id) && user?.role !== 'ADMIN') {
-        alert('Access denied: You do not own this business.');
-        navigate('/seller/businesses');
-        return;
-      }
+      // if (String(biz.sellerId) !== String(user?.id) && user?.role !== 'ADMIN') {
+      //   alert('Access denied: You do not own this business.');
+      //   navigate('/seller/businesses');
+      //   return;
+      // }
 
       setBusiness(biz);
-      setProducts(prodRes.data);
+      setProducts(biz.products);
     } catch (err) {
       console.error('Failed to load business products:', err);
     } finally {
