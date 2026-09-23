@@ -7,7 +7,7 @@ import {
   ArrowRight,
   AlertCircle,
 } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 import OrderService from '../../services/OrderService';
 
@@ -24,7 +24,7 @@ const SellerDashboard = () => {
       try {
         setLoading(true);
         // Fetch all businesses owned by this seller
-        const bizRes = await BusinesseService.getBusinessesByUser(user.id);
+        const bizRes = await BusinessService.getBusinessesByUser(user.id);
         const myBusinesses = bizRes.data;
         setBusinesses(myBusinesses);
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Store, ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 
 const CreateBusiness = () => {
   const { user } = useAuth();
@@ -41,7 +41,7 @@ const CreateBusiness = () => {
         status: 'ACTIVE',
         createdAt: new Date().toISOString().split('T')[0],
       };
-      await BusinesseService.save(data);
+      await BusinessService.save(data);
 
       // Redirect to businesses list
       navigate('/seller/businesses');

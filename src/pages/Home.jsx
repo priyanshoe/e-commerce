@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import { ArrowRight, ShieldCheck, Truck, Store } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ProductService from '../services/ProductService';
-import BusinesseService from '../services/BusinesseService';
+import BusinessService from '../services/BusinessService';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -19,7 +19,7 @@ const Home = () => {
         setLoading(true);
         const [productsRes, businessesRes] = await Promise.all([
           ProductService.getProducts(),
-          BusinesseService.getBusinesses(),
+          BusinessService.getBusinesses(),
         ]);
 
 
@@ -64,7 +64,7 @@ const Home = () => {
             <ArrowRight className="w-4 h-4" />
           </Link>
 
-          {!isAuthenticated() ? (
+          {!isAuthenticated ? (
             <Link
               id="hero-register-btn"
               to="/register"

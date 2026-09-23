@@ -4,7 +4,7 @@ import ProductCard from '../components/ProductCard';
 import Loading from '../components/Loading';
 import { Search, SlidersHorizontal, PackageOpen } from 'lucide-react';
 import ProductService from '../services/ProductService';
-import BusinesseService from '../services/BusinesseService';
+import BusinessService from '../services/BusinessService';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +22,7 @@ const Products = () => {
         setLoading(true);
         const [productsRes, businessesRes] = await Promise.all([
           ProductService.getProducts(),
-          BusinesseService.getBusinesses(),
+          BusinessService.getBusinesses(),
         ]);
 
         setProducts(productsRes.data);

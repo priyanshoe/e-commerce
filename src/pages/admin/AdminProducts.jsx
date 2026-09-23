@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { Layers, Search, Eye } from 'lucide-react';
 import ProductService from '../../services/ProductService';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -18,7 +18,7 @@ const AdminProducts = () => {
         setLoading(true);
         const [prodRes, bizRes] = await Promise.all([
           ProductService.getProducts(),
-          BusinesseService.getBusinesses()
+          BusinessService.getBusinesses()
         ]);
         setProducts(prodRes.data);
         setBusinesses(bizRes.data);

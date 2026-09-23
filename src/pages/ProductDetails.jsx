@@ -15,7 +15,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import ProductService from '../services/ProductService';
-import BusinesseService from '../services/BusinesseService';
+import BusinessService from '../services/BusinessService';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -40,7 +40,7 @@ const ProductDetails = () => {
         setProduct(prodData);
 
         if (prodData.businessId) {
-          const bizRes = await BusinesseService.getBusinessById(prodData.businessId);
+          const bizRes = await BusinessService.getBusinessById(prodData.businessId);
           setBusiness(bizRes.data);
         }
       } catch (err) {

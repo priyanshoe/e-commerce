@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import { Package, ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 
 const EditProduct = () => {
@@ -30,7 +30,7 @@ const EditProduct = () => {
       try {
         setLoading(true);
         const [bizRes, prodRes] = await Promise.all([
-          BusinesseService.getBusinessById(businessId),
+          BusinessService.getBusinessById(businessId),
           ProductService.getProduct(productId),
         ]);
 

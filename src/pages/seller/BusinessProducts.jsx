@@ -13,7 +13,7 @@ import {
   Store,
   AlertCircle,
 } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 
 const BusinessProducts = () => {
@@ -30,7 +30,7 @@ const BusinessProducts = () => {
     try {
       setLoading(true);
       const [bizRes, prodRes] = await Promise.all([
-        BusinesseService.getBusinessById(id),
+        BusinessService.getBusinessById(id),
         ProductService.getProductsByBusinesse(id),
       ]);
 

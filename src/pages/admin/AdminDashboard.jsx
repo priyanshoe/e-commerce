@@ -9,7 +9,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import AuthService from '../../services/AuthService';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 import OrderService from '../../services/OrderService';
 
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
         setLoading(true);
         const [usersRes, bizRes, prodRes, ordRes] = await Promise.all([
           AuthService.findAll(),
-          BusinesseService.getBusinesses(),
+          BusinessService.getBusinesses(),
           ProductService.getProducts(),
           OrderService.getOrders(),
         ]);

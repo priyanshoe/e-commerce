@@ -16,8 +16,7 @@ import {
   Calendar,
   AlertCircle,
 } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
-import ProductService from '../../services/ProductService';
+import BusinessService from '../../services/BusinessService';
 
 const BusinessDetails = () => {
   const { id } = useParams();
@@ -33,24 +32,14 @@ const BusinessDetails = () => {
     const fetchBusinessAndProducts = async () => {
       try {
         setLoading(true);
-        const [bizRes, prodRes] = await Promise.all([
-          BusinesseService.getBusinessById(id),
-          ProductService.getProductsByBusinesse(id),
-        ]);
-
+        const bizRes = await BusinessService.getBusinessById(id);
         const biz = bizRes.data;
-
-        // Security / Ownership check
-        if (String(biz.sellerId) !== String(user?.id) && user?.role !== 'ADMIN') {
-          alert('Access denied: You do not own this business.');
-          navigate('/seller/businesses');
-          return;
-        }
+        console.log(biz);
 
         setBusiness(biz);
-        setProducts(prodRes.data);
+        setProducts(biz?.products);
       } catch (err) {
-        console.error('Failed to load business details:', err.error);
+        console.error('Failed to load business details:', err);
         setError('Business not found or has been removed.');
       } finally {
         setLoading(false);
@@ -69,7 +58,7 @@ const BusinessDetails = () => {
     if (!window.confirm(confirmMsg)) return;
 
     try {
-      await BusinesseService.deleteItem(id);
+      await BusinessService.deleteItem(id);
       navigate('/seller/businesses');
     } catch (err) {
       console.error('Failed to delete business:', err);

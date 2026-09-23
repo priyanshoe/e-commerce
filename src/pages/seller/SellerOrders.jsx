@@ -11,7 +11,7 @@ import {
   Clock,
   ChevronDown,
 } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import OrderService from '../../services/OrderService';
 
 const SellerOrders = () => {
@@ -26,7 +26,7 @@ const SellerOrders = () => {
     try {
       setLoading(true);
       const [bizRes, ordersRes] = await Promise.all([
-        BusinesseService.getBusinessesByUser(user.id),
+        BusinessService.getBusinessesByUser(user.id),
         OrderService.getOrders()
       ]);
 

@@ -79,7 +79,7 @@ const Login = () => {
             <button
               type="button"
               id="demo-fill-seller"
-              onClick={() => handleQuickLogin('sarah@seller.com', '123456')}
+              onClick={() => handleQuickLogin('sarah6@seller.com', '123456')}
               className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-gray-700 dark:text-slate-200 hover:text-indigo-800 dark:hover:text-indigo-300 border border-gray-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600 rounded-lg text-xs font-medium text-center transition-colors cursor-pointer"
             >
               <span className="block font-bold">Seller</span>

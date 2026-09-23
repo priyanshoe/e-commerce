@@ -1,20 +1,26 @@
 import axios from "axios";
 
 const url = import.meta.env.VITE_API_URL;
-const token = localStorage.getItem('token');
 
 async function getMyBusinesses() {
     try {
+        const token = localStorage.getItem('token');
         const result = await axios.get(`${url}/business`, { headers: { Authorization: 'Bearer ' + token } });
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
-        throw { success: false, status: error.status || 500, error: error.response.data.message };
+        console.log(error.response);
+
+        throw { success: false, status: error.status || 500, error: error?.response?.data?.message };
     }
 }
 
+// for Admin only
 // async function getBusinesses() {
 //     try {
-//         const result = await axios.get(url + "/businesses")
+// const token = localStorage.getItem('token');
+//         const result = await axios.get(url + "/businesses", {
+//     headers: { Authorization: 'Bearer ' + token }
+// })
 //         return { success: true, status: 200, data: result.data };
 //     } catch (error) {
 //         throw { success: false, status: error.status || 500, error: error.message };
@@ -23,7 +29,10 @@ async function getMyBusinesses() {
 
 async function getBusinessById(id) {
     try {
-        const result = await axios.get(url + "/business/" + id)
+        const token = localStorage.getItem('token');
+        const result = await axios.get(url + "/business/" + id, {
+            headers: { Authorization: 'Bearer ' + token }
+        })
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
@@ -32,6 +41,7 @@ async function getBusinessById(id) {
 
 async function save(data) {
     try {
+        const token = localStorage.getItem('token');
         const result = await axios.post(url + "/business", data, {
             headers: { Authorization: 'Bearer ' + token }
         });
@@ -43,16 +53,22 @@ async function save(data) {
 
 async function update(id, data) {
     try {
-        const result = await axios.patch(url + "/business/" + id, data);
+        const token = localStorage.getItem('token');
+        const result = await axios.put(url + "/business/" + id, data, {
+            headers: { Authorization: 'Bearer ' + token }
+        });
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
-        throw { success: false, status: error.status || 500, error: error.message };
+        throw { success: false, status: error.status || 500, error: error?.response?.data?.message };
     }
 }
 
 async function deleteItem(id) {
     try {
-        const result = await axios.delete(url + "/business/" + id);
+        const token = localStorage.getItem('token');
+        const result = await axios.delete(url + "/business/" + id, {
+            headers: { Authorization: 'Bearer ' + token }
+        });
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };

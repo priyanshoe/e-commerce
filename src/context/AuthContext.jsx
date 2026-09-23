@@ -4,28 +4,41 @@ import AuthService from '../services/AuthService';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   // Initialize auth state from localStorage on first render
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem('user');
-      const storedToken = localStorage.getItem('token');
+    authUser();
+  }, []);
 
-      if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser));
-        setToken(storedToken);
+  // token authentication
+  const authUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      // No token -> don't call /auth/me
+      if (!token) {
+        setUser(null);
+        return;
+      }
+      const response = await AuthService.authMe();
+      if (response.success) {
+        setUser(response.data);
+        // save user to localstorage if needed
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser(null);
       }
     } catch (error) {
-      console.error('Failed to parse user from localStorage:', error);
+      console.error('Failed to authenticate user:', error.data.message);
       localStorage.removeItem('user');
       localStorage.removeItem('token');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }
 
   // Login handler
   const login = async (email, password) => {
@@ -34,14 +47,14 @@ export const AuthProvider = ({ children }) => {
         email, password
       }
       const response = await AuthService.login(data)
-      const mockToken = response.data?.data?.token;
+      const token = response.data?.data?.token;
       const authUser = response.data?.data?.user
 
       // Update state and localStorage
       setUser(authUser);
-      setToken(mockToken);
+      setToken(token);
       localStorage.setItem('user', JSON.stringify(authUser));
-      localStorage.setItem('token', mockToken);
+      localStorage.setItem('token', token);
 
       return { success: true, user: authUser };
     } catch (error) {
@@ -61,12 +74,12 @@ export const AuthProvider = ({ children }) => {
       }
       const response = await AuthService.register(data);
 
-      const mockToken = response.data?.data?.token;
+      const token = response.data?.data?.token;
       const newUser = response.data?.data?.user
 
       // Update state and localStorage
       setUser(newUser);
-      setToken(mockToken);
+      setToken(token);
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
 
@@ -77,25 +90,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Quick helper to switch demo accounts for instant learning & testing
-  const switchDemoRole = async (targetRole) => {
-    try {
-      const response = await AuthService.findAll();
-      const targetUser = response.data.find((u) => u.role === targetRole);
-      if (targetUser) {
-        const mockToken = `mock-token-${targetUser.role.toLowerCase()}-${targetUser.id}-${Date.now()}`;
-        setUser(targetUser);
-        setToken(mockToken);
-        localStorage.setItem('user', JSON.stringify(targetUser));
-        localStorage.setItem('token', mockToken);
-        return targetUser;
-      }
-    } catch (e) {
-      console.error('Failed to switch demo role:', e);
-    }
-    return null;
-  };
-
   // Logout handler
   const logout = () => {
     setUser(null);
@@ -104,11 +98,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
-  const isAuthenticated = () => {
-    const token = localStorage.getItem("token");
-
-    return token && user ? true : false;
-  }
 
   return (
     <AuthContext.Provider
@@ -116,11 +105,11 @@ export const AuthProvider = ({ children }) => {
         user,
         token,
         loading,
-        isAuthenticated,
+        setLoading,
+        isAuthenticated: !!user,
         login,
         register,
         logout,
-        switchDemoRole,
       }}
     >
       {children}

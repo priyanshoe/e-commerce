@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Loading from '../../components/Loading';
 import { Store, Search, Mail, Phone, MapPin, Package } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 import AuthService from '../../services/AuthService';
 
@@ -17,7 +17,7 @@ const AdminBusinesses = () => {
       try {
         setLoading(true);
         const [bizRes, prodRes, userRes] = await Promise.all([
-          BusinesseService.getBusinesses(),
+          BusinessService.getBusinesses(),
           ProductService.getProducts(),
           AuthService.findAll(),
         ]);

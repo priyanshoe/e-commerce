@@ -15,7 +15,7 @@ import {
   Calendar,
   AlertTriangle,
 } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 
 const Businesses = () => {
@@ -30,7 +30,7 @@ const Businesses = () => {
     try {
       setLoading(true);
       const [bizRes, prodRes] = await Promise.all([
-        BusinesseService.getMyBusinesses(),
+        BusinessService.getMyBusinesses(),
         // ProductService.getProductsByBusinesse(user.id)
       ]);
       setBusinesses(bizRes.data);
@@ -56,7 +56,7 @@ const Businesses = () => {
 
     try {
       setDeletingId(bizId);
-      await BusinesseService.deleteItem(bizId);;
+      await BusinessService.deleteItem(bizId);;
       await fetchBusinesses();
     } catch (err) {
       console.error('Failed to delete business:', err);

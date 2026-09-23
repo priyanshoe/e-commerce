@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
 import { Package, ArrowLeft, Loader2, AlertCircle, Image as ImageIcon } from 'lucide-react';
-import BusinesseService from '../../services/BusinesseService';
+import BusinessService from '../../services/BusinessService';
 import ProductService from '../../services/ProductService';
 
 const CreateProduct = () => {
@@ -29,7 +29,7 @@ const CreateProduct = () => {
     const fetchBusiness = async () => {
       try {
         setLoading(true);
-        const res = await BusinesseService.getBusinessById(id);
+        const res = await BusinessService.getBusinessById(id);
         const biz = res.data;
 
         // Security check: Must belong to seller
