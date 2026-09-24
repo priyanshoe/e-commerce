@@ -33,7 +33,6 @@ const Businesses = () => {
         BusinessService.getMyBusinesses(),
         // ProductService.getProductsByBusiness(user.id)
       ]);
-      console.log(bizRes);
 
       setBusinesses(bizRes.data);
       // setProducts(prodRes.data);
