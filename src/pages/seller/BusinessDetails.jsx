@@ -34,8 +34,6 @@ const BusinessDetails = () => {
         setLoading(true);
         const bizRes = await BusinessService.getBusinessById(id);
         const biz = bizRes.data;
-        console.log(biz);
-
         setBusiness(biz);
         setProducts(biz?.products);
       } catch (err) {
@@ -220,7 +218,7 @@ const BusinessDetails = () => {
               >
                 <div className="flex items-start gap-3">
                   <img
-                    src={product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
+                    src={product.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
                     alt={product.name}
                     className="w-14 h-14 rounded-xl object-cover bg-slate-100 shrink-0"
                   />

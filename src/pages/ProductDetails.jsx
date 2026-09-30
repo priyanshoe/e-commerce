@@ -24,7 +24,6 @@ const ProductDetails = () => {
   const { user } = useAuth();
 
   const [product, setProduct] = useState(null);
-  const [business, setBusiness] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
@@ -38,11 +37,6 @@ const ProductDetails = () => {
         const productRes = await ProductService.getProduct(id);
         const prodData = productRes.data;
         setProduct(prodData);
-
-        if (prodData.businessId) {
-          const bizRes = await BusinessService.getBusinessById(prodData.businessId);
-          setBusiness(bizRes.data);
-        }
       } catch (err) {
         console.error('Failed to load product:', err);
         setError('Product not found or has been removed.');
@@ -111,7 +105,7 @@ const ProductDetails = () => {
       {/* Back button */}
       <Link
         id="back-to-products-btn"
-        to={user.role === "ADMIN" ? "/admin/products" : "/products"}
+        to={user?.role === "ADMIN" ? "/admin/products" : "/products"}
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-800 px-3 py-1.5 rounded-lg transition-colors shadow-xs"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -124,7 +118,7 @@ const ProductDetails = () => {
         {/* Product Image */}
         <div className="relative aspect-square rounded-lg bg-gray-100 dark:bg-slate-800 overflow-hidden border border-gray-100 dark:border-slate-700">
           <img
-            src={product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
+            src={product.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
             alt={product.name}
             className="w-full h-full object-cover"
           />
@@ -138,12 +132,12 @@ const ProductDetails = () => {
           <div className="space-y-4">
 
             {/* Business Seller Header */}
-            {business && (
+            {product.business && (
               <div className="flex items-center gap-2 p-2.5 bg-indigo-50/70 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900/60 rounded-lg">
                 <Store className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <div className="text-xs">
                   <span className="text-gray-500 dark:text-slate-400">Sold by: </span>
-                  <span className="font-semibold text-gray-900 dark:text-slate-200">{business.name}</span>
+                  <span className="font-semibold text-gray-900 dark:text-slate-200">{product.business.name}</span>
                 </div>
               </div>
             )}

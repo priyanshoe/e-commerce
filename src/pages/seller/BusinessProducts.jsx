@@ -59,13 +59,14 @@ const BusinessProducts = () => {
 
     try {
       setDeletingId(productId);
-      await ProductService.deleteItem(productId);
+      await ProductService.deleteItem(business.id, productId);
       await fetchBusinessAndProducts();
     } catch (err) {
       console.error('Failed to delete product:', err);
       alert('Failed to delete product.');
     } finally {
       setDeletingId(null);
+      alert('product deleted');
     }
   };
 
@@ -155,8 +156,8 @@ const BusinessProducts = () => {
                       <div className="flex items-center gap-3">
                         <img
                           src={
-                            prod.image ||
-                            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'
+                            prod.imageUrl ||
+                            'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original'
                           }
                           alt={prod.name}
                           className="w-12 h-12 rounded-xl object-cover bg-slate-100 shrink-0 border border-slate-100"

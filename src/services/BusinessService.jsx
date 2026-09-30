@@ -27,6 +27,16 @@ async function getMyBusinesses() {
 //     }
 // }
 
+
+async function getTopBusinesses() {
+    try {
+        const result = await axios.get(url + "/business/feature");
+        return { success: true, status: 200, data: result.data?.data };
+    } catch (error) {
+        throw { success: false, status: error.status || 500, error: error.message };
+    }
+}
+
 async function getBusinessById(id) {
     try {
         const token = localStorage.getItem('token');
@@ -75,4 +85,4 @@ async function deleteItem(id) {
     }
 }
 
-export default { getMyBusinesses, getBusinessById, save, update, deleteItem }
+export default { getMyBusinesses, getTopBusinesses, getBusinessById, save, update, deleteItem }

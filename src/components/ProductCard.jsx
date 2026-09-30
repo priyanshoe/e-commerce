@@ -39,6 +39,7 @@ const ProductCard = ({ product, businessName }) => {
 
   const isOutOfStock = product.stock <= 0;
 
+
   return (
     <div
       id={`product-card-${product.id}`}
@@ -47,12 +48,12 @@ const ProductCard = ({ product, businessName }) => {
       {/* Image & Badges */}
       <div className="relative aspect-4/3 bg-gray-100 dark:bg-slate-800 overflow-hidden">
         <img
-          src={product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
+          src={product.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
           loading="lazy"
         />
-        
+
         {/* Category Pill */}
         <span className="absolute top-3 left-3 bg-white/95 dark:bg-slate-900/90 backdrop-blur-xs text-gray-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded shadow-xs">
           {product.category || 'General'}
@@ -60,13 +61,12 @@ const ProductCard = ({ product, businessName }) => {
 
         {/* Stock Status Badge */}
         <span
-          className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
-            isOutOfStock
-              ? 'bg-rose-50 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
-              : product.stock < 5
+          className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${isOutOfStock
+            ? 'bg-rose-50 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
+            : product.stock < 5
               ? 'bg-amber-50 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
               : 'bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
-          }`}
+            }`}
         >
           {isOutOfStock ? 'Sold Out' : `${product.stock} in stock`}
         </span>
@@ -116,13 +116,12 @@ const ProductCard = ({ product, businessName }) => {
                 id={`add-to-cart-btn-${product.id}`}
                 onClick={handleAddToCart}
                 disabled={adding || isOutOfStock}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer ${
-                  addedSuccess
-                    ? 'bg-emerald-600 text-white'
-                    : isOutOfStock
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer ${addedSuccess
+                  ? 'bg-emerald-600 text-white'
+                  : isOutOfStock
                     ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-slate-500 cursor-not-allowed'
                     : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'
-                }`}
+                  }`}
               >
                 {addedSuccess ? (
                   <>

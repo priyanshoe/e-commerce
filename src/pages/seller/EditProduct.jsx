@@ -50,7 +50,7 @@ const EditProduct = () => {
           description: prod.description || '',
           price: prod.price || '',
           category: prod.category || 'Electronics',
-          image: prod.image || '',
+          image: prod.imageUrl || '',
           stock: String(prod.stock ?? 0),
         });
       } catch (err) {
@@ -80,7 +80,7 @@ const EditProduct = () => {
         description: formData.description.trim(),
         price: parseFloat(formData.price),
         category: formData.category,
-        image: formData.image.trim(),
+        imageUrl: formData.image.trim(),
         stock: parseInt(formData.stock, 10),
       };
       await ProductService.update(businessId, productId, data)
@@ -202,12 +202,12 @@ const EditProduct = () => {
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 font-medium"
               >
-                <option value="Electronics">Electronics</option>
-                <option value="Home & Living">Home & Living</option>
-                <option value="Fashion & Apparel">Fashion & Apparel</option>
-                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
-                <option value="Books & Stationery">Books & Stationery</option>
-                <option value="Sports & Fitness">Sports & Fitness</option>
+                <option value="ELECTRONICS">Electronics</option>
+                <option value="HOME">Home & Living</option>
+                <option value="FASHION">Fashion & Apparel</option>
+                <option value="BEAUTY">Beauty & Personal Care</option>
+                <option value="STATIONERY">Books & Stationery</option>
+                <option value="SPORTS">Sports & Fitness</option>
               </select>
             </div>
           </div>

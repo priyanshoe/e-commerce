@@ -1,11 +1,12 @@
 import axios from "axios";
+import BusinessService from "./BusinessService";
 
 const url = import.meta.env.VITE_API_URL;
 
 async function getProducts() {
     try {
         const token = localStorage.getItem("token");
-        const result = await axios.get(url + "/product", { headers: { Authorization: 'Bearer ' + token } })
+        const result = await axios.get(url + "/product")
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
@@ -16,7 +17,7 @@ async function getProducts() {
 async function getProduct(id) {
     try {
         const token = localStorage.getItem("token");
-        const result = await axios.get(`${url}/product/${id}`, { headers: { Authorization: 'Bearer ' + token } });
+        const result = await axios.get(`${url}/product/${id}`);
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };
@@ -56,10 +57,10 @@ async function update(buzId, id, data) {
     }
 }
 
-async function deleteItem(id) {
+async function deleteItem(buzId, id) {
     try {
         const token = localStorage.getItem("token");
-        const result = await axios.delete(`${url}/business/${id}/product`, { headers: { Authorization: 'Bearer ' + token } });
+        const result = await axios.delete(`${url}/business/${buzId}/product/${id}`, { headers: { Authorization: 'Bearer ' + token } });
         return { success: true, status: 200, data: result.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };

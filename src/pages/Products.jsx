@@ -4,11 +4,9 @@ import ProductCard from '../components/ProductCard';
 import Loading from '../components/Loading';
 import { Search, SlidersHorizontal, PackageOpen } from 'lucide-react';
 import ProductService from '../services/ProductService';
-import BusinessService from '../services/BusinessService';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
@@ -20,13 +18,12 @@ const Products = () => {
     const fetchCatalog = async () => {
       try {
         setLoading(true);
-        const [productsRes, businessesRes] = await Promise.all([
+        const [productsRes] = await Promise.all([
           ProductService.getProducts(),
-          BusinessService.getBusinesses(),
         ]);
 
-        setProducts(productsRes.data);
-        setBusinesses(businessesRes.data);
+        setProducts(productsRes.data)
+        // setBusinesses(businessesRes.data);
       } catch (error) {
         console.error('Failed to fetch products:', error);
       } finally {
@@ -162,14 +159,13 @@ const Products = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => {
-            const business = businesses.find((b) => String(b.id) === String(product.businessId));
-            const isActive = business.status === "ACTIVE" ? true : false
+            const isActive = product.business.status === "ACTIVE" ? true : false
             return (
               isActive &&
               <ProductCard
                 key={product.id}
                 product={product}
-                businessName={business?.name}
+                businessName={product.business?.name}
               />
             );
           })}

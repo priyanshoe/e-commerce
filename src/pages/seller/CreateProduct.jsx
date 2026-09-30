@@ -80,7 +80,7 @@ const CreateProduct = () => {
         description: formData.description.trim(),
         price: parseFloat(formData.price),
         category: formData.category.toUpperCase(),
-        image: defaultImage,
+        imageUrl: defaultImage,
         stock: parseInt(formData.stock, 10),
         createdAt: new Date().toISOString().split('T')[0],
       };
@@ -208,12 +208,13 @@ const CreateProduct = () => {
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 font-medium"
               >
-                <option value="Electronics">Electronics</option>
-                <option value="Home & Living">Home & Living</option>
-                <option value="Fashion & Apparel">Fashion & Apparel</option>
-                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
-                <option value="Books & Stationery">Books & Stationery</option>
-                <option value="Sports & Fitness">Sports & Fitness</option>
+                <option value="ELECTRONICS">Electronics</option>
+                <option value="HOME">Home & Living</option>
+                <option value="FASHION">Fashion & Apparel</option>
+                <option value="BEAUTY">Beauty & Personal Care</option>
+                <option value="STATIONERY">Books & Stationery</option>
+                <option value="SPORTS">Sports & Fitness</option>
+                <option value="FOOD">Food and Drinks</option>
               </select>
             </div>
           </div>

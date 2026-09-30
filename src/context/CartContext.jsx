@@ -20,21 +20,8 @@ export const CartProvider = ({ children }) => {
     try {
       setLoading(true);
       // Get all cart items for this customer
-      const cartRes = await CartService.getCartByUser(user.id)
-
-      // Also get all products to combine rich product info
-      const productsRes = await ProductService.getProducts();
-      const products = productsRes.data;
-
-      const itemsWithProduct = cartRes.data.map((item) => {
-        const product = products.find((p) => String(p.id) === String(item.productId)) || null;
-        return {
-          ...item,
-          product,
-        };
-      }).filter(item => item.product !== null); // Ignore orphan products if any
-
-      setCartItems(itemsWithProduct);
+      const cartRes = await CartService.getMyCart()
+      setCartItems(cartRes.data);
     } catch (error) {
       console.error('Failed to fetch cart:', error);
     } finally {
@@ -49,9 +36,9 @@ export const CartProvider = ({ children }) => {
   // Add product to cart
   const addToCart = async (productId, quantity = 1) => {
     if (!user) return { success: false, requireLogin: true };
-    if (user.role !== 'CUSTOMER') {
-      return { success: false, message: 'Only customers can add items to the cart.' };
-    }
+    // if (user.role !== 'CUSTOMER') {
+    //   return { success: false, message: 'Only customers can add items to the cart.' };
+    // }
 
     try {
       const existing = cartItems.find((item) => String(item.productId) === String(productId));

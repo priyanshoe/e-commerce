@@ -19,7 +19,7 @@ const Home = () => {
         setLoading(true);
         const [productsRes, businessesRes] = await Promise.all([
           ProductService.getProducts(),
-          BusinessService.getBusinesses(),
+          BusinessService.getTopBusinesses(),
         ]);
 
 
@@ -151,12 +151,11 @@ const Home = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProducts.map((product) => {
-              const business = businesses.find((b) => String(b.id) === String(product.businessId));
               return (
                 <ProductCard
                   key={product.id}
                   product={product}
-                  businessName={business?.name}
+                  businessName={product.business?.name}
                 />
               );
             })}
