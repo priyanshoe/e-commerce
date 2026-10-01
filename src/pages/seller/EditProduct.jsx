@@ -208,6 +208,7 @@ const EditProduct = () => {
                 <option value="BEAUTY">Beauty & Personal Care</option>
                 <option value="STATIONERY">Books & Stationery</option>
                 <option value="SPORTS">Sports & Fitness</option>
+                <option value="FOOD">Food and Drinks</option>
               </select>
             </div>
           </div>

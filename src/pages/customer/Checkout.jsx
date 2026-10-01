@@ -80,7 +80,7 @@ const Checkout = () => {
         businessId: item.product?.businessId || null,
         price: item.product?.price || 0,
         quantity: item.quantity,
-        image: item.product?.image || '',
+        image: item.product?.imageUrl || '',
       }));
 
       const fullAddress = `${shippingInfo.address}, ${shippingInfo.city} ${shippingInfo.postalCode}, Tel: ${shippingInfo.phone}`;
@@ -343,7 +343,7 @@ const Checkout = () => {
                 <div key={item.id} className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <img
-                      src={item.product?.image || ''}
+                      src={item.product?.imageUrl || ''}
                       alt={item.product?.name}
                       className="w-10 h-10 rounded-lg object-cover bg-gray-100 dark:bg-slate-800 shrink-0"
                     />

@@ -18,7 +18,7 @@ async function login(data) {
         return { success: true, status: 200, data: result.data };
     } catch (err) {
         console.log("Error in login", err.response)
-        return { success: false, status: err.status || 500, error: err.response.data.message };
+        throw { success: false, status: err.status || 500, error: err.response.data.message };
     }
 }
 
@@ -31,7 +31,7 @@ async function authMe() {
         return { success: true, status: 200, data: result.data?.data };
     } catch (err) {
         console.log("Error in auth", err.response)
-        return { success: false, status: err.status || 500, error: err.response.data.message };
+        throw { success: false, status: err.status || 500, error: err.response.data.message };
     }
 }
 

@@ -11,7 +11,6 @@ const ProtectedRoute = ({ role, children }) => {
 
   // 1. Not logged in -> Redirect to /login
   if (!isAuthenticated || !user) {
-    alert("please login again")
     return <Navigate to="/login" replace />;
   }
 

@@ -82,7 +82,7 @@ const Cart = () => {
                   <div className="w-20 h-20 rounded-lg bg-gray-100 dark:bg-slate-800 overflow-hidden shrink-0 border border-gray-100 dark:border-slate-700">
                     <img
                       src={
-                        item.product?.image ||
+                        item.product?.imageUrl ||
                         'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'
                       }
                       alt={item.product?.name || 'Product'}

@@ -41,7 +41,7 @@ export const CartProvider = ({ children }) => {
     // }
 
     try {
-      const existing = cartItems.find((item) => String(item.productId) === String(productId));
+      const existing = cartItems.find((item) => String(item.product.id) === String(productId));
 
       if (existing) {
         // Update quantity
@@ -61,6 +61,7 @@ export const CartProvider = ({ children }) => {
       return { success: true };
     } catch (error) {
       console.error('Failed to add to cart:', error);
+      alert(error.error);
       return { success: false, message: 'Failed to add item to cart.' };
     }
   };
