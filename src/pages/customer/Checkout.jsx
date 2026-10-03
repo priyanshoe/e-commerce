@@ -87,14 +87,8 @@ const Checkout = () => {
 
       // Create order via REST API POST /orders
       const data = {
-        customerId: user.id,
-        products: orderProducts,
-        totalAmount: cartSubtotal,
-        paymentMethod: paymentMethod === 'CARD' ? 'Card Payment' : 'Cash on Delivery',
-        status: 'PLACED',
-        orderDate: new Date().toISOString().split('T')[0],
+        paymentMethod: paymentMethod === 'CARD' ? 'CARD' : 'COD',
         shippingAddress: fullAddress,
-        cardLast4: paymentMethod === 'CARD' ? '4242' : null,
       };
       const orderResponse = await OrderService.save(data);
 

@@ -22,7 +22,7 @@ const Orders = () => {
       if (!user) return;
       try {
         setLoading(true);
-        const res = await OrderService.getOrderByUser(user.id);
+        const res = await OrderService.getOrderByUser();
         setOrders(res.data);
       } catch (err) {
         console.error('Failed to fetch customer orders:', err);
@@ -132,7 +132,7 @@ const Orders = () => {
                     <span className="text-gray-400 dark:text-slate-500 text-[11px] block">Order Placed</span>
                     <span className="font-semibold text-gray-800 dark:text-slate-200 flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500" />
-                      {order.orderDate}
+                      {order.orderDate.split("T")[0] + " " + order.orderDate.split("T")[1].split(".")[0]}
                     </span>
                   </div>
                   <div>
@@ -171,16 +171,16 @@ const Orders = () => {
 
               {/* Products in this order */}
               <div className="p-5 divide-y divide-gray-100 dark:divide-slate-800">
-                {order.products?.map((item, idx) => (
+                {order.orderItems?.map((item, idx) => (
                   <div key={idx} className="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                       <img
-                        src={item.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
-                        alt={item.name}
+                        src={item.product?.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
+                        alt={item.product?.name}
                         className="w-12 h-12 rounded-lg object-cover bg-gray-100 dark:bg-slate-800 shrink-0 border border-gray-100 dark:border-slate-700"
                       />
                       <div>
-                        <p className="font-semibold text-sm text-gray-900 dark:text-slate-100">{item.name}</p>
+                        <p className="font-semibold text-sm text-gray-900 dark:text-slate-100">{item.product?.name}</p>
                         <p className="text-xs text-gray-400 dark:text-slate-500">
                           Qty: {item.quantity} • ${Number(item.price).toFixed(2)} each
                         </p>
@@ -200,7 +200,7 @@ const Orders = () => {
               <div className="px-5 py-2.5 bg-gray-50/50 dark:bg-slate-800/40 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-gray-500 dark:text-slate-400">
                 <span className="flex items-center gap-1.5">
                   <CreditCard className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500" />
-                  <span>Payment: {order.paymentMethod}</span>
+                  <span>Payment: {order.paymentMethod == "CARD" ? "Card Payment" : "Cash on Delivery"}</span>
                 </span>
                 <span className="truncate max-w-xs">📍 {order.shippingAddress}</span>
               </div>

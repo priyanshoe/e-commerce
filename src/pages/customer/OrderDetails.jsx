@@ -89,7 +89,9 @@ const OrderDetails = () => {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Order #{order.id}</h1>
             <p className="text-xs text-gray-500 dark:text-slate-400 flex items-center gap-2">
               <Calendar className="w-3.5 h-3.5" />
-              <span>Placed on {order.orderDate}</span>
+              <span>
+                Placed on {order.orderDate.split("T")[0] + " " + order.orderDate.split("T")[1].split(".")[0]}
+              </span>
             </p>
           </div>
 
@@ -107,11 +109,11 @@ const OrderDetails = () => {
             Purchased Products
           </h2>
           <div className="divide-y divide-gray-100 dark:divide-slate-800 border border-gray-100 dark:border-slate-800 rounded-lg p-2 bg-gray-50/50 dark:bg-slate-800/40">
-            {order.products?.map((item, index) => (
+            {order.orderItems?.map((item, index) => (
               <div key={index} className="p-3 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <img
-                    src={item.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
+                    src={item.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}
                     alt={item.name}
                     className="w-12 h-12 rounded-lg object-cover bg-gray-200 dark:bg-slate-700 shrink-0"
                   />

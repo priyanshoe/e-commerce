@@ -25,38 +25,9 @@ const SellerOrders = () => {
     if (!user) return;
     try {
       setLoading(true);
-      const [bizRes, ordersRes] = await Promise.all([
-        BusinessService.getBusinessesByUser(user.id),
-        OrderService.getOrders()
-      ]);
+      const ordersRes = await OrderService.getOrderBySeller();
 
-      const myBizList = bizRes.data;
-      setBusinesses(myBizList);
-
-      const myBizIds = new Set(myBizList.map((b) => Number(b.id)));
-
-      // Filter only orders that contain products belonging to this seller's businesses
-      const matchedOrders = ordersRes.data
-        .map((order) => {
-          const sellerProductsInOrder = (order.products || []).filter((p) =>
-            myBizIds.has(Number(p.businessId))
-          );
-          if (sellerProductsInOrder.length === 0) return null;
-
-          const sellerTotal = sellerProductsInOrder.reduce(
-            (sum, p) => sum + (Number(p.price) || 0) * (p.quantity || 1),
-            0
-          );
-
-          return {
-            ...order,
-            sellerProducts: sellerProductsInOrder,
-            sellerSubtotal: sellerTotal,
-          };
-        })
-        .filter(Boolean);
-
-      setOrders(matchedOrders);
+      setOrders(ordersRes.data);
     } catch (err) {
       console.error('Failed to load seller orders:', err);
     } finally {
@@ -126,7 +97,9 @@ const SellerOrders = () => {
                   </div>
                   <div>
                     <span className="text-slate-400 text-[11px] block">Order Date</span>
-                    <span className="font-semibold text-slate-800">{order.orderDate}</span>
+                    <span className="font-semibold text-slate-800">
+                      {order.orderDate.split("T")[0] + " " + order.orderDate.split("T")[1].split(".")[0]}
+                    </span>
                   </div>
                   <div>
                     <span className="text-slate-400 text-[11px] block">Customer ID</span>
@@ -135,7 +108,8 @@ const SellerOrders = () => {
                   <div>
                     <span className="text-slate-400 text-[11px] block">Your Earnings</span>
                     <span className="font-extrabold text-indigo-600 text-sm">
-                      ${order.sellerSubtotal.toFixed(2)}
+                      {/* ${order.sellerSubtotal.toFixed(2)} */}
+                      {order.totalAmount}
                     </span>
                   </div>
                 </div>
@@ -160,14 +134,13 @@ const SellerOrders = () => {
 
               {/* Items List */}
               <div className="p-6 divide-y divide-slate-100">
-                {order.sellerProducts.map((item, idx) => {
-                  const biz = businesses.find((b) => Number(b.id) === Number(item.businessId));
+                {order.orderItems.map((item, idx) => {
                   return (
                     <div key={idx} className="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3.5">
                         <img
                           src={
-                            item.image ||
+                            item.imageUrl ||
                             'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'
                           }
                           alt={item.name}
@@ -176,7 +149,7 @@ const SellerOrders = () => {
                         <div>
                           <p className="font-bold text-sm text-slate-900">{item.name}</p>
                           <p className="text-xs text-slate-500">
-                            Store: <span className="font-semibold text-indigo-600">{biz?.name || 'Your Business'}</span> • Qty: {item.quantity} × ${Number(item.price).toFixed(2)}
+                            Store: <span className="font-semibold text-indigo-600">{item.business.name || 'Your Business'}</span> • Qty: {item.quantity} × ${Number(item.price).toFixed(2)}
                           </p>
                         </div>
                       </div>
@@ -193,7 +166,7 @@ const SellerOrders = () => {
               <div className="px-6 py-3 bg-slate-50/50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
                 <span className="flex items-center gap-1.5">
                   <CreditCard className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Payment: {order.paymentMethod}</span>
+                  <span>Payment: {order.paymentMethod == "CARD" ? "Card Payment" : "Cash on Delivery"}</span>
                 </span>
                 <span className="truncate max-w-sm">📍 Delivery: {order.shippingAddress}</span>
               </div>
