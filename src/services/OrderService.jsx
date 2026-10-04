@@ -59,11 +59,14 @@ async function getOrder(id) {
 }
 async function update(id, status) {
     try {
-        const result = await axios.patch(url + "/orders/" + id, { status: status });
+        const token = localStorage.getItem("token");
+        const result = await axios.patch(url + "/order/" + id, status, {
+            headers: {
+                Authorization: "Bearer " + token,
+                "Content-Type": "application/json"
+            }
+        });
 
-        if (status === "DELIVERED") {
-            // update products quantity
-        }
 
         return { success: true, status: 200, data: result.data };
     } catch (error) {
