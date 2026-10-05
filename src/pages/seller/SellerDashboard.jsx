@@ -8,7 +8,6 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import BusinessService from '../../services/BusinessService';
-import ProductService from '../../services/ProductService';
 import OrderService from '../../services/OrderService';
 
 const SellerDashboard = () => {
@@ -24,28 +23,25 @@ const SellerDashboard = () => {
       try {
         setLoading(true);
         // Fetch all businesses owned by this seller
-        const bizRes = await BusinessService.getBusinessesByUser(user.id);
+        const bizRes = await BusinessService.getMyBusinesses();
         const myBusinesses = bizRes.data;
         setBusinesses(myBusinesses);
 
-        // Fetch all products and orders
-        const [productsRes, ordersRes] = await Promise.all([
-          ProductService.getProducts(),
-          OrderService.getOrders()
-        ]);
+        // Set all products
+        var allProducts = [];
+        for (let business of myBusinesses) {
+          for (let product of business?.products) {
+            allProducts.push(product);
+          }
 
-        const allProducts = productsRes.data;
-        const myBizIds = new Set(myBusinesses.map((b) => Number(b.id)));
+        }
+        setProducts(allProducts);
 
-        // Filter products belonging to any of seller's businesses
-        const sellerProducts = allProducts.filter((p) => myBizIds.has(Number(p.businessId)));
-        setProducts(sellerProducts);
-
-        // Filter orders containing products from seller's businesses
-        const sellerOrders = ordersRes.data.filter((ord) =>
-          ord.products?.some((p) => myBizIds.has(Number(p.businessId)))
-        );
+        // Fetch all seller orders
+        const result = await OrderService.getOrderBySeller();
+        const sellerOrders = result.data;
         setOrders(sellerOrders);
+
       } catch (err) {
         console.error('Failed to load seller dashboard:', err);
       } finally {
@@ -65,9 +61,9 @@ const SellerDashboard = () => {
 
   // Calculate simulated revenue from seller's products
   const totalRevenue = orders.reduce((sum, ord) => {
-    const bizIds = new Set(businesses.map((b) => Number(b.id)));
-    const sellerItems = ord.products?.filter((p) => bizIds.has(Number(p.businessId))) || [];
-    const itemSum = sellerItems.reduce((acc, item) => acc + (Number(item.price) * Number(item.quantity || 1)), 0);
+    // const bizIds = new Set(businesses.map((b) => Number(b.id)));
+    // const sellerItems = ord.products?.filter((p) => bizIds.has(Number(p.businessId))) || [];
+    const itemSum = ord?.orderItems.reduce((acc, item) => acc + (Number(item.price) * Number(item.quantity || 1)), 0);
     return sum + itemSum;
   }, 0);
 

@@ -17,7 +17,6 @@ import OrderService from '../../services/OrderService';
 const SellerOrders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
-  const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
 

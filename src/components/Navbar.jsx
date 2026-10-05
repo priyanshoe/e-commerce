@@ -60,7 +60,7 @@ const Navbar = () => {
                 L
               </div>
               <div className="flex items-baseline">
-                <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-white">LearnerStore</span>
+                <span className={`${user?.role === 'ADMIN' ? 'hidden' : ' '} font-bold text-xl tracking-tight text-gray-900 dark:text-white`}>LearnerStore</span>
                 <span className="text-gray-400 dark:text-slate-500 font-normal ml-2 text-xs uppercase tracking-widest hidden sm:inline">
                   {user?.role ? `${user.role} Portal` : 'Portal'}
                 </span>
