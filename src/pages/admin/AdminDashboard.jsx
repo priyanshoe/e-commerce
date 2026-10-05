@@ -8,33 +8,19 @@ import {
   Package,
   ArrowRight,
 } from 'lucide-react';
-import AuthService from '../../services/AuthService';
-import BusinessService from '../../services/BusinessService';
-import ProductService from '../../services/ProductService';
-import OrderService from '../../services/OrderService';
+import AdminService from '../../services/AdminService';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  const [businesses, setBusinesses] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([]);
+  const [dashboard, setDashboard] = useState([])
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAdminStats = async () => {
       try {
         setLoading(true);
-        const [usersRes, bizRes, prodRes, ordRes] = await Promise.all([
-          AuthService.findAll(),
-          BusinessService.getBusinesses(),
-          ProductService.getProducts(),
-          OrderService.getOrders(),
-        ]);
-
-        setUsers(usersRes.data);
-        setBusinesses(bizRes.data);
-        setProducts(prodRes.data);
-        setOrders(ordRes.data);
+        const result = await AdminService.getDashboard();
+        setDashboard(result.data);
       } catch (err) {
         console.error('Failed to load admin stats:', err);
       } finally {
@@ -49,9 +35,7 @@ const AdminDashboard = () => {
     return <Loading fullScreen message="Loading administrative dashboard..." />;
   }
 
-  const customers = users.filter((u) => u.role === 'CUSTOMER');
-  const sellers = users.filter((u) => u.role === 'SELLER');
-  const totalRevenue = orders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
+
 
   return (
     <div id="admin-dashboard-page" className="space-y-8 pb-16">
@@ -79,7 +63,7 @@ const AdminDashboard = () => {
         <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs flex flex-col justify-between transition-colors duration-200">
           <p className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-2">Customers</p>
           <div className="flex items-end justify-between">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{customers.length.toString().padStart(2, '0')}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{dashboard?.customers.toString().padStart(2, '0')}</span>
             <Link to="/admin/users" className="text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
               View →
             </Link>
@@ -90,7 +74,7 @@ const AdminDashboard = () => {
         <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs flex flex-col justify-between transition-colors duration-200">
           <p className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-2">Sellers</p>
           <div className="flex items-end justify-between">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{sellers.length.toString().padStart(2, '0')}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{dashboard?.sellers.toString().padStart(2, '0')}</span>
             <Link to="/admin/users" className="text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
               View →
             </Link>
@@ -101,7 +85,7 @@ const AdminDashboard = () => {
         <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs flex flex-col justify-between transition-colors duration-200">
           <p className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-2">Businesses</p>
           <div className="flex items-end justify-between">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{businesses.length.toString().padStart(2, '0')}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{dashboard?.businesses.toString().padStart(2, '0')}</span>
             <Link to="/admin/businesses" className="text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
               Stores →
             </Link>
@@ -112,7 +96,7 @@ const AdminDashboard = () => {
         <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs flex flex-col justify-between transition-colors duration-200">
           <p className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-2">Products</p>
           <div className="flex items-end justify-between">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{products.length.toString().padStart(2, '0')}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{dashboard?.products.toString().padStart(2, '0')}</span>
             <Link to="/admin/products" className="text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
               Items →
             </Link>
@@ -123,7 +107,7 @@ const AdminDashboard = () => {
         <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-xs flex flex-col justify-between col-span-2 sm:col-span-1 transition-colors duration-200">
           <p className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-2">Orders</p>
           <div className="flex items-end justify-between">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{orders.length.toString().padStart(2, '0')}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{dashboard?.orders.toString().padStart(2, '0')}</span>
             <Link to="/admin/orders" className="text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
               Orders →
             </Link>
@@ -193,7 +177,7 @@ const AdminDashboard = () => {
           </div>
           <div>
             <h3 className="font-bold text-sm text-gray-900 dark:text-white">Manage Orders</h3>
-            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Total GMV: ${totalRevenue.toFixed(2)}</p>
+            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Total GMV: ${dashboard?.totalRevenue.toFixed(2)}</p>
           </div>
         </Link>
       </div>
@@ -223,7 +207,7 @@ const AdminDashboard = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-slate-800 font-medium">
-              {orders.slice(0, 5).map((order) => (
+              {dashboard?.recentOrders.slice(0, 5).map((order) => (
                 <tr key={order.id} className="hover:bg-gray-50/70 dark:hover:bg-slate-800/50 transition-colors">
                   <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">#{order.id}</td>
                   <td className="px-4 py-3 text-gray-600 dark:text-slate-300">User #{order.customerId}</td>

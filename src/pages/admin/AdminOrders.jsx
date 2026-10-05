@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Loading from '../../components/Loading';
 import { Package, Search, CreditCard, Truck } from 'lucide-react';
 import OrderService from '../../services/OrderService';
+import AdminService from '../../services/AdminService';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -13,7 +14,7 @@ const AdminOrders = () => {
   const fetchAdminOrders = async () => {
     try {
       setLoading(true);
-      const res = await OrderService.getOrders();
+      const res = await AdminService.getOrders();
       setOrders(res.data);
     } catch (err) {
       console.error('Failed to load admin orders:', err);
@@ -122,7 +123,9 @@ const AdminOrders = () => {
                 </div>
                 <div>
                   <span className="text-slate-400 text-[11px] block">Date</span>
-                  <span className="font-medium text-slate-700">{order.orderDate}</span>
+                  <span className="font-medium text-slate-700">
+                    {order.orderDate.split("T")[0] + " " + order.orderDate.split("T")[1].split(".")[0]}
+                  </span>
                 </div>
                 <div>
                   <span className="text-slate-400 text-[11px] block">Customer</span>
@@ -156,12 +159,12 @@ const AdminOrders = () => {
 
             {/* Items */}
             <div className="p-6 divide-y divide-slate-100">
-              {order.products?.map((item, idx) => (
+              {order.orderItems?.map((item, idx) => (
                 <div key={idx} className="py-2.5 first:pt-0 last:pb-0 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
                     <img
                       src={
-                        item.image ||
+                        item.imageUrl ||
                         'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'
                       }
                       alt={item.name}
@@ -170,7 +173,7 @@ const AdminOrders = () => {
                     <div>
                       <p className="font-bold text-slate-900">{item.name}</p>
                       <p className="text-[11px] text-slate-400">
-                        Qty: {item.quantity} • ${Number(item.price).toFixed(2)} each • Business ID: {item.businessId}
+                        Qty: {item.quantity} • ${Number(item.price).toFixed(2)} each • Business ID: {item.business.id}
                       </p>
                     </div>
                   </div>

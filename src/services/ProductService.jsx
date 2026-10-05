@@ -5,7 +5,6 @@ const url = import.meta.env.VITE_API_URL;
 
 async function getProducts() {
     try {
-        const token = localStorage.getItem("token");
         const result = await axios.get(url + "/product")
         return { success: true, status: 200, data: result.data?.data };
     } catch (error) {

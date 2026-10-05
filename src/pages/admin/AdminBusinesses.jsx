@@ -1,14 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import Loading from '../../components/Loading';
 import { Store, Search, Mail, Phone, MapPin, Package } from 'lucide-react';
-import BusinessService from '../../services/BusinessService';
-import ProductService from '../../services/ProductService';
-import AuthService from '../../services/AuthService';
+import AdminService from '../../services/AdminService';
 
 const AdminBusinesses = () => {
   const [businesses, setBusinesses] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -16,15 +12,9 @@ const AdminBusinesses = () => {
     const fetchAdminBusinessData = async () => {
       try {
         setLoading(true);
-        const [bizRes, prodRes, userRes] = await Promise.all([
-          BusinessService.getBusinesses(),
-          ProductService.getProducts(),
-          AuthService.findAll(),
-        ]);
+        const bizRes = await AdminService.getBusinesses();
 
         setBusinesses(bizRes.data);
-        setProducts(prodRes.data);
-        setUsers(userRes.data);
       } catch (err) {
         console.error('Failed to load admin businesses:', err);
       } finally {
@@ -93,8 +83,8 @@ const AdminBusinesses = () => {
             </thead>
             <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
               {filteredBusinesses.map((b) => {
-                const seller = users.find((u) => u.id === b.sellerId);
-                const bizProds = products.filter((p) => p.businessId === b.id);
+                const seller = b.owner;
+                const bizProds = b.products;
 
                 return (
                   <tr key={b.id} className="hover:bg-slate-50/70 transition-colors">
@@ -104,7 +94,7 @@ const AdminBusinesses = () => {
                       <p className="text-[11px] text-slate-400 line-clamp-1">{b.description}</p>
                     </td>
                     <td className="px-5 py-4">
-                      <p className="font-semibold text-slate-800">{seller?.name || `Seller #${b.sellerId}`}</p>
+                      <p className="font-semibold text-slate-800">{seller?.name || `Seller #${seller.id}`}</p>
                       <p className="text-[11px] text-slate-400">{seller?.email}</p>
                     </td>
                     <td className="px-5 py-4 text-slate-500 space-y-0.5">

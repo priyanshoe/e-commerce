@@ -2,12 +2,10 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { Layers, Search, Eye } from 'lucide-react';
-import ProductService from '../../services/ProductService';
-import BusinessService from '../../services/BusinessService';
+import AdminService from '../../services/AdminService';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
-  const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoryFilter, setCategoryFilter] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,12 +14,8 @@ const AdminProducts = () => {
     const fetchAdminProducts = async () => {
       try {
         setLoading(true);
-        const [prodRes, bizRes] = await Promise.all([
-          ProductService.getProducts(),
-          BusinessService.getBusinesses()
-        ]);
+        const prodRes = await AdminService.getProducts();
         setProducts(prodRes.data);
-        setBusinesses(bizRes.data);
       } catch (err) {
         console.error('Failed to load products:', err);
       } finally {
@@ -119,7 +113,7 @@ const AdminProducts = () => {
             </thead>
             <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
               {filteredProducts.map((p) => {
-                const biz = businesses.find((b) => Number(b.id) === Number(p.businessId));
+                const biz = p.business;
 
                 return (
                   <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
@@ -128,7 +122,7 @@ const AdminProducts = () => {
                       <div className="flex items-center gap-3">
                         <img
                           src={
-                            p.image ||
+                            p.imageUrl ||
                             'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'
                           }
                           alt={p.name}
@@ -142,7 +136,7 @@ const AdminProducts = () => {
                     </td>
                     <td className="px-5 py-4">
                       <span className="font-semibold text-slate-800">
-                        {biz?.name || `Business #${p.businessId}`}
+                        {biz?.name || `Business #${biz?.id}`}
                       </span>
                     </td>
                     <td className="px-5 py-4">

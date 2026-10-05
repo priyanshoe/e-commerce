@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Loading from '../../components/Loading';
 import { Users, Search, Filter, Shield, User, Store } from 'lucide-react';
 import AuthService from '../../services/AuthService';
+import AdminService from '../../services/AdminService';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -13,10 +14,10 @@ const AdminUsers = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const res = await AuthService.findAll();
+        const res = await AdminService.getUsers();
         setUsers(res.data);
       } catch (err) {
-        console.error('Failed to load users:', err);
+        console.error('Failed to load users:', err.error);
       } finally {
         setLoading(false);
       }
