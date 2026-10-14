@@ -57,13 +57,13 @@ const Navbar = () => {
               className="flex items-center gap-2.5 hover:opacity-95 transition-opacity"
             >
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-base shadow-xs">
-                L
+                Q
               </div>
               <div className="flex items-baseline">
-                <span className={`${user?.role === 'ADMIN' ? 'hidden' : ' '} font-bold text-xl tracking-tight text-gray-900 dark:text-white`}>LearnerStore</span>
-                <span className="text-gray-400 dark:text-slate-500 font-normal ml-2 text-xs uppercase tracking-widest hidden sm:inline">
+                <span className={`${user?.role === 'ADMIN' ? 'hidden' : ' '} font-bold text-xl tracking-tight text-gray-900 dark:text-white`}>QuickCart</span>
+                {/* <span className="text-gray-400 dark:text-slate-500 font-normal ml-2 text-xs uppercase tracking-widest hidden sm:inline">
                   {user?.role ? `${user.role} Portal` : 'Portal'}
-                </span>
+                </span> */}
               </div>
             </Link>
 
@@ -180,7 +180,7 @@ const Navbar = () => {
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 {/* Role Pill */}
-                <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full border border-gray-200 dark:border-slate-700">
+                {/* <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full border border-gray-200 dark:border-slate-700">
                   <div
                     className={`w-2 h-2 rounded-full ${user.role === 'ADMIN'
                       ? 'bg-rose-500'
@@ -192,7 +192,7 @@ const Navbar = () => {
                   <span className="text-[11px] font-bold text-gray-600 dark:text-slate-300 uppercase tracking-wider">
                     {user.role}
                   </span>
-                </div>
+                </div> */}
 
                 {/* User Info & Avatar */}
                 <div className="hidden sm:flex items-center gap-2.5">
