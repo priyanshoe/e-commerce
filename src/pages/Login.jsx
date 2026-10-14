@@ -61,7 +61,7 @@ const Login = () => {
         </div>
 
         {/* Quick Demo Credentials Panel */}
-        <div className="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-3.5 space-y-2">
+        {/* <div className="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-3.5 space-y-2">
           <div className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest text-center">
             Quick Fill Demo Accounts
           </div>
@@ -96,7 +96,7 @@ const Login = () => {
               <span className="text-[10px] text-gray-400 dark:text-slate-500">Alex</span>
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Error Alert */}
         {error && (
