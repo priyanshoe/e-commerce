@@ -20,20 +20,6 @@
       "email": "admin@shop.com",
       "password": "123456",
       "role": "ADMIN"
-    },
-    {
-      "name": "Jhon 2",
-      "email": "john2@example.com",
-      "password": "123456",
-      "role": "CUSTOMER",
-      "id": "EctEddVVurg"
-    },
-    {
-      "name": "Sarah 2",
-      "email": "sarah2@seller.com",
-      "password": "123456",
-      "role": "SELLER",
-      "id": "jaJOh1bSwig"
     }
   ],
   "businesses": [
@@ -386,6 +372,5 @@
       "cardLast4": null,
       "id": "lVCnnGq6yTk"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
