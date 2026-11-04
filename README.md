@@ -9,7 +9,7 @@ A modern, responsive, and feature-rich **Full Stack E-Commerce Web Application**
 
 QuickCart provides separate dashboards and role-based functionality for **Admin, Seller, and Customer** users, with secure authentication and RESTful API integration.
 
-🌐 **Live Demo:** https://e-commerce-five-mu-41.vercel.app/
+🌐 **Live Demo:** <a href="https://e-commerce-five-mu-41.vercel.app/" target="_blank" rel="noopener noreferrer">QuickCart – Live Demo</a>
 
 ---
 
