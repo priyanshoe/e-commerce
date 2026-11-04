@@ -11,8 +11,6 @@ QuickCart provides separate dashboards and role-based functionality for **Admin,
 
 🌐 **Live Demo:** https://e-commerce-five-mu-41.vercel.app/
 
-📂 **GitHub Repository:** https://github.com/priyanshoe/e-commerce
-
 ---
 
 ## ✨ Features
@@ -36,7 +34,7 @@ QuickCart provides separate dashboards and role-based functionality for **Admin,
 
 ### 🏪 Seller Features
 - Seller dashboard
-- Manage business information
+- Manage multiple business
 - Add and manage products
 - Update product details
 - Manage incoming orders
@@ -76,7 +74,7 @@ QuickCart provides separate dashboards and role-based functionality for **Admin,
 | API Architecture | RESTful APIs |
 | Build Tools | Vite, Maven |
 | Version Control | Git, GitHub |
-| Deployment | Vercel, Railway |
+| Deployment | Vercel, Render, Railway |
 
 ---
 
@@ -92,6 +90,10 @@ The application follows a client-server architecture.
              Spring Boot API
                    |
           Spring Security + JWT
+                   |
+             DTO Layer
+                   |
+             Controller Layer
                    |
              Service Layer
                    |
@@ -176,55 +178,8 @@ npm run dev
 
 ### 3. Backend Setup
 
-Navigate to the Spring Boot backend directory.
-
-Configure your database connection in `application.properties`:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
-spring.datasource.username=YOUR_DB_USERNAME
-spring.datasource.password=YOUR_DB_PASSWORD
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-server.servlet.context-path=/api
-```
-
-Configure your JWT secret and other required application properties.
-
-Build and run the Spring Boot application:
-
-```bash
-mvn clean install
-```
-
-```bash
-mvn spring-boot:run
-```
-
-### 4. Database Setup
-
-Create a MySQL database:
-
-```sql
-CREATE DATABASE ecommerce;
-```
-
-Make sure your MySQL server is running and the database credentials are configured correctly.
-
-The backend will be available at:
-
-```text
-http://localhost:8080/api
-```
-
-The frontend will be available at the Vite development URL, usually:
-
-```text
-http://localhost:5173
-```
-
+   📂 **Refer backend GitHub Repository:** https://github.com/priyanshoe/e-commerce-backend
+   
 ---
 
 ## 🔒 Security Implementation
