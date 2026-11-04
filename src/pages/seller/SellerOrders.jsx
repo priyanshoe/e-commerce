@@ -42,8 +42,13 @@ const SellerOrders = () => {
     try {
       setUpdatingId(orderId);
       // REST API PATCH /orders/:id
-      await OrderService.update(orderId, newStatus)
-      await fetchSellerOrders();
+      const res = await OrderService.update(orderId, newStatus);
+      // Keep the current page mounted instead of showing the full-screen loader again.
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId ? { ...order, ...res.data } : order
+        )
+      );
     } catch (err) {
       console.error('Failed to update order status:', err);
       alert('Failed to update order status.');
@@ -53,7 +58,7 @@ const SellerOrders = () => {
   };
 
   if (loading) {
-    return <Loading fullScreen message="Loading seller orders..." />;
+    return <Loading fullScreen message="Loading fulfilment orders..." />;
   }
 
   return (
@@ -65,7 +70,7 @@ const SellerOrders = () => {
           Seller Orders & Fulfillment
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-          View customer orders placed for products across all your registered businesses.
+          Review and fulfil customer orders for all of your businesses.
         </p>
       </div>
 
@@ -74,9 +79,9 @@ const SellerOrders = () => {
           <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 mx-auto flex items-center justify-center">
             <Package className="w-7 h-7" />
           </div>
-          <h2 className="text-lg font-bold text-slate-900">No Orders Received Yet</h2>
+          <h2 className="text-lg font-bold text-slate-900">No orders to fulfil</h2>
           <p className="text-xs text-slate-500 max-w-sm mx-auto">
-            When customers place orders containing items from your storefronts, they will appear here in real-time.
+            Customer orders containing products from your businesses will appear here.
           </p>
         </div>
       ) : (

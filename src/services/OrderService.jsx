@@ -68,6 +68,13 @@ async function update(id, status) {
         });
 
 
+        // Persist the flag with the status. It prevents a later SHIPPED -> DELIVERED
+        // update from subtracting the same order quantities a second time.
+        const result = await axios.patch(url + "/orders/" + id, {
+            status,
+            ...(shouldAdjustStock ? { inventoryAdjusted: true } : {}),
+        });
+
         return { success: true, status: 200, data: result.data };
     } catch (error) {
         throw { success: false, status: error.status || 500, error: error.message };

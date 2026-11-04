@@ -44,13 +44,13 @@ const Home = () => {
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full text-xs font-semibold text-gray-600 dark:text-slate-300">
             <div className="w-2 h-2 bg-indigo-600 dark:bg-indigo-400 rounded-full" />
-            <span>React + REST Mock Platform</span>
+            <span>Modern commerce, made simple</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
-            Minimalist E-Commerce with Role-Based Portals
+            Your marketplace, thoughtfully managed
           </h1>
           <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed">
-            A clean multi-business commerce application with full CRUD support, simulated REST API persistence, customer cart & checkout, seller store management, and administrative oversight.
+            Discover quality products from independent businesses and manage every part of your marketplace in one place.
           </p>
         </div>
 
@@ -97,9 +97,9 @@ const Home = () => {
             <Truck className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 dark:text-white text-sm">Real-Time Stock & Cart</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white text-sm">Inventory You Can Trust</h3>
             <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-              Instant inventory validation, simulated latency, and local storage state synchronization.
+              See current availability and keep your selections organised as you shop.
             </p>
           </div>
         </div>
@@ -109,9 +109,9 @@ const Home = () => {
             <Store className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 dark:text-white text-sm">Multi-Store Sellers</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white text-sm">Built for Growing Businesses</h3>
             <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-              Sellers can register distinct storefronts, assign catalogs, and track orders.
+              Build storefronts, publish products, and fulfil orders from one focused workspace.
             </p>
           </div>
         </div>
@@ -121,9 +121,9 @@ const Home = () => {
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 dark:text-white text-sm">Role-Based Guarding</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white text-sm">Purpose-Built Workspaces</h3>
             <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">
-              Granular protection across Customer, Seller, and Admin routing barriers.
+              Tailored experiences give customers, sellers, and administrators the tools they need.
             </p>
           </div>
         </div>
@@ -134,7 +134,7 @@ const Home = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">Featured Products</h2>
-            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Explore our latest arrivals across electronics and apparel</p>
+            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Explore a curated selection from trusted independent businesses.</p>
           </div>
           <Link
             id="view-all-products-link"
@@ -147,7 +147,7 @@ const Home = () => {
         </div>
 
         {loading ? (
-          <Loading message="Loading catalog..." />
+          <Loading message="Loading featured products..." />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProducts.map((product) => {

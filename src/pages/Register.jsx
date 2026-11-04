@@ -55,7 +55,7 @@ const Register = () => {
             <UserPlus className="w-5 h-5" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Create an Account</h1>
-          <p className="text-xs text-gray-500 dark:text-slate-400">Choose your account type and get started</p>
+          <p className="text-xs text-gray-500 dark:text-slate-400">Choose the account that best fits how you use the marketplace.</p>
         </div>
 
         {/* Role Selector Tabs */}
@@ -77,7 +77,7 @@ const Register = () => {
                 <User className={`w-4 h-4 ${role === 'CUSTOMER' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400 dark:text-slate-500'}`} />
                 <span className="font-bold text-xs">Customer</span>
               </div>
-              <p className="text-[11px] text-gray-500 dark:text-slate-400 font-normal">Browse and purchase products</p>
+              <p className="text-[11px] text-gray-500 dark:text-slate-400 font-normal">Discover products and place orders securely.</p>
             </button>
 
             <button
@@ -93,7 +93,7 @@ const Register = () => {
                 <Store className={`w-4 h-4 ${role === 'SELLER' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400 dark:text-slate-500'}`} />
                 <span className="font-bold text-xs">Seller</span>
               </div>
-              <p className="text-[11px] text-gray-500 dark:text-slate-400 font-normal">Register business & sell items</p>
+              <p className="text-[11px] text-gray-500 dark:text-slate-400 font-normal">Create a storefront and manage your catalogue.</p>
             </button>
           </div>
         </div>
@@ -117,7 +117,7 @@ const Register = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. John Doe"
+              placeholder="Enter your full name"
               required
               className="w-full px-3.5 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500"
             />
@@ -132,7 +132,7 @@ const Register = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g. user@example.com"
+              placeholder="name@example.com"
               required
               className="w-full px-3.5 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500"
             />
@@ -147,7 +147,7 @@ const Register = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Create a strong password"
+              placeholder="Create a secure password"
               required
               className="w-full px-3.5 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500"
             />
